@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events | Dr Cornelius Adewale</title>
+  <meta name="description" content="Live, practical sessions on starting farms, protecting land decisions, and building a profitable agribusiness.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      background: #0a0e1a;
+      color: #fff;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      z-index: 1001;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 0.9rem;
+    }
+    .nav-links a { opacity: 0.85; transition: opacity 0.2s; }
+    .nav-links a:hover,
+    .nav-links a.active { opacity: 1; }
+    .nav-cta {
+      background: #2563eb;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      transition: 0.3s;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 95vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 140px 40px 100px;
+      color: #fff;
+      background: #0a0e1a;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1600') center/cover no-repeat;
+      filter: brightness(0.45);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,14,26,0.9), rgba(10,14,26,0.35));
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+    }
+    .hero-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 22px;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      opacity: 0.9;
+      max-width: 560px;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 14px;
+    }
+
+    .section h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.03em;
+      margin-bottom: 18px;
+    }
+
+    /* EVENTS GRID */
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 48px;
+    }
+    .event-card {
+      background: #111;
+      color: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s;
+    }
+    .event-card:hover { transform: translateY(-4px); }
+    .event-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .event-card .body { padding: 24px; }
+    .event-card .tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.75;
+      margin-bottom: 10px;
+    }
+    .event-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .event-card .meta {
+      font-size: 0.95rem;
+      opacity: 0.8;
+    }
+
+    /* WHICH */
+    .which-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 40px;
+    }
+    .which-card {
+      background: #f5f5f5;
+      padding: 36px;
+      border-radius: 14px;
+    }
+    .which-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+    .which-card p { color: #555; }
+
+    /* WHY */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 40px;
+    }
+    .why-card {
+      border-top: 2px solid #111;
+      padding-top: 24px;
+    }
+    .why-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    .why-card p { color: #555; }
+
+    /* TESTIMONIALS */
+    .testimonials {
+      background: #f7f7f7;
+    }
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 40px;
+    }
+    .testimonial-card {
+      background: #fff;
+      padding: 28px;
+      border-radius: 12px;
+    }
+    .stars {
+      color: #2563eb;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+    .testimonial-card p {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 0.98rem;
+    }
+    .testimonial-card .name {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .testimonial-card .role {
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    /* FAQ */
+    .faq-section {
+      background: #f5f5f5;
+      padding: 100px 40px;
+    }
+    .faq-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .faq-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #888;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .faq-title {
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 48px;
+      color: #111;
+      letter-spacing: -0.03em;
+    }
+    .faq-item {
+      border-bottom: 1px solid rgba(0,0,0,0.12);
+    }
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #111;
+      font-family: inherit;
+    }
+    .faq-icon {
+      flex-shrink: 0;
+      font-size: 1.4rem;
+      color: #555;
+      transition: transform 0.25s;
+    }
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 220px;
+      padding-bottom: 22px;
+    }
+    .faq-answer p {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: #555;
+    }
+
+    /* CTA */
+    .cta-box {
+      background: #2563eb;
+      color: #fff;
+      text-align: center;
+      padding: 100px 40px;
+    }
+    .cta-box h2 {
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .cta-box p {
+      opacity: 0.9;
+      max-width: 480px;
+      margin: 0 auto 28px;
+    }
+    .btn {
+      display: inline-block;
+      background: #fff;
+      color: #111;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #0a0e1a;
+      color: #fff;
+      padding: 80px 40px 50px;
+    }
+    .footer-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 60px;
+    }
+    .footer-heading {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 28px;
+    }
+    .footer-heading span { color: #60a5fa; }
+    .newsletter-form {
+      display: flex;
+      gap: 12px;
+      max-width: 480px;
+      margin-bottom: 16px;
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: transparent;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+    }
+    .newsletter-form button {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .newsletter-note {
+      font-size: 0.8rem;
+      color: #888;
+      max-width: 420px;
+    }
+    .newsletter-note a {
+      color: #60a5fa;
+      text-decoration: underline;
+    }
+    .sitemap-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 20px;
+    }
+    .sitemap-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sitemap-list a { color: #60a5fa; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .nav { padding: 16px 20px; }
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: #0a0e1a;
+        flex-direction: column;
+        padding: 100px 32px 40px;
+        gap: 24px;
+        transition: right 0.3s ease;
+        z-index: 1000;
+      }
+      .nav-links.open { right: 0; }
+      .nav-links a { font-size: 1.1rem; opacity: 1; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .hamburger.active span:nth-child(2) { opacity: 0; }
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .hero { padding: 120px 24px 80px; min-height: 85vh; }
+      .container { padding: 0 24px; }
+      .events-grid,
+      .which-grid,
+      .why-grid,
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-inner { grid-template-columns: 1fr; }
+      .faq-section { padding: 70px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="Cornelius.html" class="nav-logo">DR CORNELIUS ADEWALE</a>
+    <div class="nav-links" id="navLinks">
+      <a href="Cornelius.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="get-protected.html">Get Protected</a>
+      <a href="event.html" class="active">Events</a>
+      <a href="courses.html">Courses</a>
+      <a href="resources.html">Resources</a>
+      <a href="insights.html">Insights</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Work With Me →</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-label">Live Events</p>
+      <h1>Learn from someone who actually runs farms.</h1>
+      <p>Live, practical sessions on land decisions, farm systems, and building an agribusiness that lasts — taught by someone who does the work, not just talks about it.</p>
+    </div>
+  </header>
+
+  <!-- UPCOMING -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Upcoming</p>
+      <h2>Sessions you can join</h2>
+      <div class="events-grid">
+        <a href="contact.html" class="event-card">
+          <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800" alt="Agribusiness Masterclass">
+          <div class="body">
+            <div class="tag">Virtual · Zoom</div>
+            <h3>Agribusiness Masterclass: Turn Your Farm Into a Real Business</h3>
+            <div class="meta">Virtual · From ₦250,000</div>
+          </div>
+        </a>
+        <a href="contact.html" class="event-card">
+          <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800" alt="Farmland workshop">
+          <div class="body">
+            <div class="tag">Workshop</div>
+            <h3>Safe Farmland Workshop: Verify Before You Pay</h3>
+            <div class="meta">Virtual · From ₦100,000</div>
+          </div>
+        </a>
+        <a href="contact.html" class="event-card">
+          <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800" alt="Crop strategy">
+          <div class="body">
+            <div class="tag">Workshop</div>
+            <h3>Crop & Season Strategy: Stop Guessing What to Plant</h3>
+            <div class="meta">Virtual · From ₦80,000</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHICH -->
+  <section class="section" style="background:#fafafa;">
+    <div class="container">
+      <p class="section-label">Choose your path</p>
+      <h2>Workshop or masterclass?</h2>
+      <div class="which-grid">
+        <div class="which-card">
+          <h3>Workshop</h3>
+          <p>Shorter, focused sessions on one practical problem — land checks, crop choice, or a single system. Best if you need clarity on one decision now.</p>
+        </div>
+        <div class="which-card">
+          <h3>Masterclass</h3>
+          <p>Deeper sessions on running the farm as a business — strategy, systems, and the decisions that shape the whole operation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Why attend</p>
+      <h2>What you leave with</h2>
+      <div class="why-grid">
+        <div class="why-card">
+          <h3>Real farm context</h3>
+          <p>Not theory from a slide deck — decisions shaped by actual farm operations and the mistakes people keep repeating.</p>
+        </div>
+        <div class="why-card">
+          <h3>Clear next steps</h3>
+          <p>You leave knowing what to do this season, not a pile of notes you never use.</p>
+        </div>
+        <div class="why-card">
+          <h3>Questions answered live</h3>
+          <p>Bring your situation. Get direct feedback instead of guessing from random advice online.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section testimonials">
+    <div class="container">
+      <p class="section-label">What people say</p>
+      <h2>What happens when you stop guessing</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>“I almost paid for land that had no clean title. One session saved me from a mistake that would have cost years.”</p>
+          <div class="name">Adebayo K.</div>
+          <div class="role">First-time farm investor</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>“Practical, clear, and honest. I finally understand how to plan a season instead of reacting to every problem.”</p>
+          <div class="name">Chioma O.</div>
+          <div class="role">Farm operator, Ogun</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>“The masterclass changed how I see the farm — as a business with systems, not just hard work.”</p>
+          <div class="name">Ibrahim S.</div>
+          <div class="role">Agribusiness owner</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="faq-inner">
+      <p class="faq-label">Common Questions</p>
+      <h2 class="faq-title">Before you register.</h2>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>Are the events recorded?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Selected sessions may be recorded for registered attendees. You’ll be told before each event if a replay will be available.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>Can I attend from outside Nigeria?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. Virtual events run on Zoom. You can join from anywhere in the world with a stable internet connection.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>What if I can’t make the date?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Contact us as soon as you know. Depending on the event, we can move you to the next available date or advise on the best option for you.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>Which one is for me — the workshop or the masterclass?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Workshop = focused on one practical skill or problem (e.g. land checks, crop choice). Masterclass = deeper session on running the farm as a real business. If you’re new, start with a workshop. If you want the full system, go for the masterclass.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>What’s the difference between the workshop and the masterclass?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Workshops are shorter and practical on a single topic. Masterclasses go wider — strategy, systems, and decisions for the whole farm or agribusiness.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-box">
+    <h2>Don’t miss the next one.</h2>
+    <p>Get notified when new events are announced, so you never have to search for the next one.</p>
+    <a href="contact.html" class="btn">Notify Me</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <h2 class="footer-heading">
+          <span>Join our newsletter</span> for<br>
+          tips, advice and<br>
+          offers!
+        </h2>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Enter your email">
+          <button type="submit">Subscribe ✉</button>
+        </form>
+        <p class="newsletter-note">
+          By signing up to receive emails from Dr Cornelius Adewale, you agree to our
+          <a href="privacy.html">Privacy Policy</a>.
+          We treat your info responsibly. Unsubscribe anytime.
+        </p>
+      </div>
+      <div>
+        <p class="sitemap-label">Sitemap</p>
+        <ul class="sitemap-list">
+          <li><a href="Cornelius.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="get-protected.html">Get Protected</a></li>
+          <li><a href="event.html">Events</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="insights.html">Insights</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* Hamburger */
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+
+    /* FAQ accordion */
+    document.querySelectorAll('.faq-question').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var item = btn.parentElement;
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function (el) {
+          el.classList.remove('open');
+        });
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
+
+</body>
+</html>

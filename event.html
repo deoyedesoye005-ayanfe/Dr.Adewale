@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events | Dr Cornelius Adewale</title>
+  <meta name="description" content="Live, practical sessions on starting farms, managing production, and protecting your investment.">
+  <style>
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  color: #1a1a1a;
+  background: #fff;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ========== NAV (FIXED) ========== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 40px;
+  background: #0a0e1a;
+  color: #fff;
+}
+
+.nav-logo {
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  z-index: 1001;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  font-size: 0.9rem;
+}
+
+.nav-links a {
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  opacity: 1;
+}
+
+.nav-cta {
+  background: #2563eb;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 4px;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  transition: 0.3s;
+}
+
+/* ========== HERO (Bigger) ========== */
+.hero {
+  position: relative;
+  min-height: 95vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 140px 40px 100px;
+  color: #fff;
+  background: #0a0e1a;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://corneliusadewale.com/wp-content/uploads/2021/01/Cornelius-News-2-web.jpg') center/cover no-repeat;
+  filter: brightness(0.5);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,14,26,0.95) 0%, rgba(10,14,26,0.55) 50%, rgba(10,14,26,0.2) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.hero-label {
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(2.6rem, 5.5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  max-width: 580px;
+  opacity: 0.9;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 36px;
+  flex-wrap: wrap;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* ========== SHARED ========== */
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ========== SECTIONS ========== */
+.section {
+  padding: 110px 0;
+}
+
+.section.dark {
+  background: #0a0e1a;
+  color: #fff;
+}
+
+.section.light {
+  background: #f5f5f5;
+}
+
+.section h2 {
+  font-size: clamp(2.1rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 48px;
+  max-width: 720px;
+}
+
+/* ========== EVENT CARDS (Bigger) ========== */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.event-card {
+  background: #141820;
+  border-radius: 14px;
+  overflow: hidden;
+  display: block;
+  transition: transform 0.2s;
+}
+
+.event-card:hover {
+  transform: translateY(-20px);
+}
+
+.event-card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.event-card .body {
+  padding: 28px 24px 32px;
+}
+
+.event-card .tag {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #60a5fa;
+  margin-bottom: 12px;
+}
+
+.event-card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+  line-height: 1.35;
+  color: #fff;
+}
+
+.event-card .meta {
+  font-size: 0.95rem;
+  color: #aaa;
+}
+
+/* ========== WHICH EVENT ========== */
+.which-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.which-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px 28px;
+  border: 1px solid #e5e5e5;
+}
+
+.which-card .label {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2563eb;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+
+.which-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.which-card p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* ========== WHY ATTEND ========== */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  margin-top: 40px;
+}
+
+.why-item h3 {
+  font-size: 1.25rem;
+  margin-bottom: 14px;
+}
+
+.why-item p {
+  color: #444;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+/* ========== TESTIMONIALS ========== */
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.testimonial {
+  background: #141820;
+  border-radius: 12px;
+  padding: 32px 28px;
+  color: #fff;
+}
+
+.testimonial p {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 24px;
+  line-height: 1.65;
+}
+
+.testimonial .author {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.testimonial .role {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+/* ========== FAQ ========== */
+.faq-list {
+  margin-top: 36px;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  padding: 22px 0;
+}
+
+.faq-item h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+/* ========== CTA ========== */
+.cta-box {
+  background: #0a0e1a;
+  color: #fff;
+  padding: 100px 40px;
+  text-align: center;
+}
+
+.cta-box h2 {
+  font-size: 2.2rem;
+  margin-bottom: 18px;
+}
+
+.cta-box p {
+  opacity: 0.85;
+  max-width: 500px;
+  margin: 0 auto 32px;
+  font-size: 1.1rem;
+}
+
+.cta-box a.btn {
+  display: inline-block;
+  background: #2563eb;
+  color: #fff;
+  padding: 16px 36px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  background: #0a0e1a;
+  color: #fff;
+  padding: 80px 40px 50px;
+}
+
+.footer-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 60px;
+}
+
+.footer-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 28px;
+}
+
+.footer-heading span {
+  color: #60a5fa;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 12px;
+  max-width: 480px;
+  margin-bottom: 16px;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 14px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: transparent;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+}
+
+.newsletter-form button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.newsletter-note {
+  font-size: 0.8rem;
+  color: #888;
+  max-width: 420px;
+}
+
+.newsletter-note a {
+  color: #60a5fa;
+  text-decoration: underline;
+}
+
+.sitemap-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+.sitemap-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sitemap-list a {
+  color: #60a5fa;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+  .nav {
+    padding: 16px 20px;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: #0a0e1a;
+    flex-direction: column;
+    padding: 100px 32px 40px;
+    gap: 24px;
+    transition: right 0.3s ease;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+    z-index: 1000;
+  }
+
+  .nav-links.open {
+    right: 0;
+  }
+
+  .nav-links a {
+    font-size: 1.1rem;
+    opacity: 1;
+  }
+
+  .nav-cta {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  .events-grid,
+  .which-grid,
+  .why-grid,
+  .testimonials {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 110px 24px 70px;
+    min-height: 85vh;
+  }
+
+  .container {
+    padding: 0 24px;
+  }
+
+  .section {
+    padding: 70px 0;
+  }
+
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+}
+</style>
+</head>
+<body>
+
+  <!-- NAV (FIXED) -->
+  <nav class="nav">
+    <a href="Cornelius.html" class="nav-logo">Dr CORNELIUS ADEWALE</a>
+
+    <div class="nav-links" id="navLinks">
+      <a href="Cornelius.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="get-protected.html">Get Protected</a>
+      <a href="event.html" class="active">Events</a>
+      <a href="courses.html">Courses</a>
+      <a href="resources.html">Resources</a>
+      <a href="insights.html">Insights</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <a href="contact.html" class="nav-cta">Work With Me →</a>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-label">Live Events</p>
+      <h1>Learn from someone who actually farms, wherever you are in the world.</h1>
+      <p>Live, practical sessions on starting farms, managing production, and protecting your investment. Taught by someone who does this work in the real world — not just someone who talks about it.</p>
+      <div class="hero-stats">
+        <span>★ 5,000+ farmers trained</span>
+        <span>Real results from farmers</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- LIVE SESSIONS -->
+  <section class="section dark">
+    <div class="container">
+      <h2>Live sessions with direct access to me.</h2>
+
+      <div class="events-grid">
+        <a href="#" class="event-card">
+          <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800" alt="Farm Foundations">
+          <div class="body">
+            <div class="tag">Virtual · Zoom</div>
+            <h3>Farm Foundations: What to Do Before You Start</h3>
+            <div class="meta">Virtual · From ₦75,000</div>
+          </div>
+        </a>
+
+        <a href="#" class="event-card">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800" alt="Safe Farmland">
+          <div class="body">
+            <div class="tag">Virtual · Zoom</div>
+            <h3>Safe Farmland: How to Buy Farmland Securely</h3>
+            <div class="meta">Virtual · From ₦75,000</div>
+          </div>
+        </a>
+
+        <a href="#" class="event-card">
+          <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800" alt="Agribusiness Masterclass">
+          <div class="body">
+            <div class="tag">Virtual · Zoom</div>
+            <h3>Agribusiness Masterclass: Turn Your Farm Into a Real Business</h3>
+            <div class="meta">Virtual · From ₦250,000</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHICH EVENT -->
+  <section class="section light">
+    <div class="container">
+      <p style="font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; color:#666; margin-bottom:12px;">Not Sure Which One</p>
+      <h2>Which event is right for you?</h2>
+      <p style="max-width:640px; margin-bottom:40px; color:#444;">All three protect your farm the same way. The difference is where you are in your journey — so start from your situation, not the event name.</p>
+
+      <div class="which-grid">
+        <div class="which-card">
+          <div class="label">Before You Buy: Verify the Land</div>
+          <h3>Safe Farmland Workshop</h3>
+          <p>From ₦75,000</p>
+        </div>
+        <div class="which-card">
+          <div class="label">After You Buy, Before You Start</div>
+          <h3>Farm Foundations Workshop</h3>
+          <p>From ₦75,000</p>
+        </div>
+        <div class="which-card">
+          <div class="label">From Setup to Scale</div>
+          <h3>Agribusiness Masterclass</h3>
+          <p>From ₦250,000</p>
+        </div>
+      </div>
+
+      <p style="margin-top:32px;"><a href="contact.html" style="color:#2563eb; font-weight:600;">Still not sure? Take the 2-Minute Assessment instead →</a></p>
+    </div>
+  </section>
+
+  <!-- WHY ATTEND -->
+  <section class="section">
+    <div class="container">
+      <p style="font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; color:#666; margin-bottom:12px;">Why Attend Live</p>
+      <h2>You Don't Just Learn — You Leave Knowing What to Do</h2>
+
+      <div class="why-grid">
+        <div class="why-item">
+          <h3>Based on Real Experience and Practical Frameworks</h3>
+          <p>Everything is built from real farms, real mistakes, and the systems I've used to help farmers protect their investment and grow sustainably. No motivational talk or theory for theory's sake — just frameworks you can apply to your own farm.</p>
+        </div>
+        <div class="why-item">
+          <h3>Bring Your Situation and Get a Real Answer</h3>
+          <p>Have a question about a piece of farmland, crop choice, labour, or your current operations? Bring it to the session and ask. You'll get a direct answer from someone who has actually dealt with these decisions on real farms.</p>
+        </div>
+        <div class="why-item">
+          <h3>Leave With More Than Notes</h3>
+          <p>You leave knowing what to look for, what questions to ask, and what to do next — before a bad decision costs you an entire season.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF / TESTIMONIALS -->
+  <section class="section dark">
+    <div class="container">
+      <p style="font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; color:#888; margin-bottom:12px;">Proof</p>
+      <h2>What Happens When You Stop Guessing</h2>
+
+      <div class="testimonials">
+        <div class="testimonial">
+          <p>"Clear and practical teaching. The advice on how to choose reliable farm hands and manage input costs was especially useful. A short PDF summary for reference would also be helpful."</p>
+          <div class="author">Alight</div>
+          <div class="role">Attendee</div>
+        </div>
+        <div class="testimonial">
+          <p>"A well-packaged session full of real knowledge every serious farmer needs. Looking forward to the next one."</p>
+          <div class="author">Tolu</div>
+          <div class="role">Attendee</div>
+        </div>
+        <div class="testimonial">
+          <p>"I attended one of his live sessions thinking I knew enough to start a farm. I didn't. Cornelius broke down everything — from soil testing to why you can't skip proper record-keeping. I learned more in one session than from weeks of YouTube videos. My farm is now on track and I'm no longer guessing."</p>
+          <div class="author">Abdul Gafar</div>
+          <div class="role">First-Time Farmer, Ilesa</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section dark" style="padding-top:40px;">
+    <div class="container">
+      <p style="font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; color:#888; margin-bottom:12px;">Common Questions</p>
+      <h2>Before you register.</h2>
+
+      <div class="faq-list">
+        <div class="faq-item"><h3>Are the events recorded?</h3></div>
+        <div class="faq-item"><h3>Can I attend from outside Nigeria?</h3></div>
+        <div class="faq-item"><h3>What if I can't make the date?</h3></div>
+        <div class="faq-item"><h3>Which one is for me — the workshop or the masterclass?</h3></div>
+        <div class="faq-item"><h3>What's the difference between the workshop and the masterclass?</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-box">
+    <h2>Don't miss the next one.</h2>
+    <p>Get notified when new events are announced, so you never have to search for the next one.</p>
+    <a href="contact.html" class="btn">Notify Me</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <h2 class="footer-heading">
+          <span>Join our newsletter</span> for<br>
+          tips, advice and<br>
+          offers!
+        </h2>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Enter your email">
+          <button type="submit">Subscribe ✉</button>
+        </form>
+        <p class="newsletter-note">
+          By signing up to receive emails from Dr Cornelius Adewale, you agree to our
+          <a href="privacy.html">Privacy Policy</a>.
+          We treat your info responsibly. Unsubscribe anytime.
+        </p>
+      </div>
+      <div>
+        <p class="sitemap-label">Sitemap</p>
+        <ul class="sitemap-list">
+          <li><a href="Cornelius.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="get-protected.html">Get Protected</a></li>
+          <li><a href="event.html">Events</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="insights.html">Insights</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+  </script>
+
+</body>
+</html>

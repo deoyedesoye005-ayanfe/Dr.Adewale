@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Protected | Cornelius Adewale</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV (FIXED) */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      background: #0a0e1a;
+      color: #fff;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      z-index: 1001;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 0.9rem;
+    }
+    .nav-links a { opacity: 0.85; }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; }
+    .nav-cta {
+      background: #2563eb;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      transition: 0.3s;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 120px 40px 80px;
+      color: #fff;
+      background: #0a0e1a;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('images/DSC_0667.jpg') center/cover no-repeat;
+      background-size: cover;
+      background-position: center 10%;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,14,26,0.95) 0%, rgba(10,14,26,0.6) 50%, rgba(10,14,26,0.3) 100%);
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 720px; }
+    .hero-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      max-width: 560px;
+      opacity: 0.9;
+      line-height: 1.7;
+    }
+
+    .container { max-width: 95%; margin: 0 auto; padding: 0; }
+
+    /* DOOR SECTIONS */
+    .door {
+      padding: 100px 0;
+    }
+    .door.dark {
+      background: #0a0e1a;
+      color: #fff;
+    }
+    .door.light {
+      background: #f5f5f5;
+      color: #1a1a1a;
+    }
+    .door-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #60a5fa;
+      margin-bottom: 12px;
+    }
+    .door.light .door-label { color: #2563eb; }
+    .door h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .door > .container > p {
+      font-size: 1.1rem;
+      max-width: 640px;
+      margin-bottom: 48px;
+      opacity: 0.9;
+    }
+
+    /* SERVICE ROWS */
+    .service-list {
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.door.light .service-list {
+  border-top-color: rgba(0,0,0,0.1);
+}
+
+.service-row {
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  transition: background 0.2s;
+}
+.door.light .service-row {
+  border-bottom-color: rgba(0,0,0,0.1);
+}
+.service-row:hover {
+  background: rgba(255,255,255,0.03);
+}
+.door.light .service-row:hover {
+  background: rgba(0,0,0,0.02);
+}
+
+/* The link is the full-width row */
+.service-row a {
+  display: grid;
+  grid-template-columns: 1fr auto;  /* text left, price far right */
+  gap: 40px;
+  align-items: center;
+  padding: 28px 0;
+  width: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.service-row h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.service-row p {
+  font-size: 0.95rem;
+  opacity: 0.75;
+  margin: 0;
+  max-width: 520px;
+}
+
+.service-price {
+  text-align: right;
+  white-space: nowrap;
+  justify-self: end;   /* stick to the extreme right */
+}
+.service-price .amount {
+  font-size: 1.15rem;
+  font-weight: 600;
+  display: block;
+}
+.service-price .meta {
+  font-size: 0.8rem;
+  opacity: 0.65;
+  display: block;
+  margin-top: 2px;
+}
+
+.arrow {
+  opacity: 0.5;
+  font-size: 1.1rem;
+  margin-left: 8px;
+}
+    /* WORKSHOP CARDS */
+    .workshop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .workshop-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      height: 320px;
+      background: #111;
+    }
+    .workshop-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.85;
+    }
+    .workshop-card .cap {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 24px 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      color: #fff;
+    }
+    .workshop-card .tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 6px;
+    }
+    .workshop-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+    .workshop-card .price {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    .section-links {
+      margin-top: 36px;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .section-links a {
+      color: #60a5fa;
+      font-weight: 600;
+      border-bottom: 1px solid transparent;
+    }
+    .section-links a:hover { border-bottom-color: #60a5fa; }
+    .door.light .section-links a { color: #2563eb; }
+
+    /* SUB-SECTION LABEL */
+    .sub-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #60a5fa;
+      margin: 48px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sub-label::before {
+      content: '';
+      width: 20px;
+      height: 2px;
+      background: #60a5fa;
+    }
+    .sub-desc {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 24px;
+      max-width: 520px;
+    }
+
+    /* CTA BOX */
+    .cta-box {
+      background: #0a0e1a;
+      color: #fff;
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .cta-box h2 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+    .cta-box p {
+      opacity: 0.85;
+      max-width: 520px;
+      margin: 0 auto 28px;
+    }
+    .cta-box a.btn {
+      display: inline-block;
+      background: #2563eb;
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #0a0e1a;
+      color: #fff;
+      padding: 80px 40px 50px;
+    }
+    .footer-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 60px;
+    }
+    .footer-heading {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 28px;
+    }
+    .footer-heading span { color: #60a5fa; }
+    .newsletter-form {
+      display: flex;
+      gap: 12px;
+      max-width: 480px;
+      margin-bottom: 16px;
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: transparent;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+    }
+    .newsletter-form button {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .newsletter-note {
+      font-size: 0.8rem;
+      color: #888;
+      max-width: 420px;
+    }
+    .newsletter-note a { color: #60a5fa; text-decoration: underline; }
+    .sitemap-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 20px;
+    }
+    .sitemap-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sitemap-list a { color: #60a5fa; }
+
+    @media (max-width: 900px) {
+      .nav {
+        padding: 16px 20px;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: #0a0e1a;
+        flex-direction: column;
+        padding: 100px 32px 40px;
+        gap: 24px;
+        transition: right 0.3s ease;
+        box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+        z-index: 1000;
+      }
+
+      .nav-links.open {
+        right: 0;
+      }
+
+      .nav-links a {
+        font-size: 1.1rem;
+        opacity: 1;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .workshop-grid { grid-template-columns: 1fr; }
+      .service-row { grid-template-columns: 1fr; gap: 8px; }
+      .service-price { text-align: left; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .hero { padding: 100px 24px 60px; }
+      .container { padding: 0 24px; }
+      .door { padding: 70px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV (FIXED) -->
+  <nav class="nav">
+    <a href="Cornelius.html" class="nav-logo">Dr CORNELIUS ADEWALE</a>
+
+    <div class="nav-links" id="navLinks">
+      <a href="Cornelius.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="get-protected.html" class="active">Get Protected</a>
+      <a href="event.html">Events</a>
+      <a href="courses.html">Courses</a>
+      <a href="resources.html">Resources</a>
+      <a href="insights.html">Insights</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <a href="contact.html" class="nav-cta">Work With Me →</a>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-label">Get Protected</p>
+      <h1>Every Farming Decision Deserves Strategy.</h1>
+      <p>Whether you're starting a farm, expanding production,
+         or trying to fix a struggling agribusiness,
+         one wrong decision can cost you years of hard work.
+         My job is to help you make the right one.
+         Choose the kind of support you need below.</p>
+    </div>
+  </header>
+
+  <!-- PATH ONE -->
+  <section class="door dark">
+    <div class="container">
+      <p class="door-label">Path One</p>
+      <h2>Ask Me First.</h2>
+      <p>Some decisions don't need another opinion.
+        They need the right one. If you're about to buy farmland,
+        start a new project, hire a manager, or make any major farming decision,
+        speak to me before you commit. Sometimes a short conversation is enough to save you a whole season — or more.</p>
+
+      <div class="service-list">
+        <div class="service-row">
+          <a href="contact.html">
+            <div>
+              <h3>Clear Decision Call</h3>
+              <p>One critical farm decision, settled quickly and effectively.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">₦50,000</span>
+              <span class="meta"> session</span>
+            </div>
+          </a>
+        </div>
+        <div class="service-row">
+          <a href="contact.html">
+            <div>
+              <h3>Farm Strategy Call</h3>
+              <p>Your full farming situation, untangled and mapped out in one focused session.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">₦100,000</span>
+              <span class="meta">Focused strategy session</span>
+            </div>
+          </a>
+        </div>
+        <div class="service-row">
+          <a href="contact.html">
+            <div>
+              <h3>Farm Discovery Session</h3>
+              <p>An honest assessment of your farm or agribusiness before you commit to anything bigger.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">From ₦150,000</span>
+              <span class="meta">By location · credited toward your engagement</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PATH TWO -->
+  <section class="door light">
+    <div class="container">
+      <p class="door-label">Path Two</p>
+      <h2>Learn With Me.</h2>
+      <p>The best way to avoid expensive farming mistakes is to understand them before
+        they happen. Whether you join a workshop or take a course, everything I teach
+        comes directly from real farms, real failures, and real lessons from the field — not
+        theory.</p>
+      <div class="workshop-grid">
+        <a href="event.html" class="workshop-card">
+          <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800" alt="Farm Foundations Workshop">
+          <div class="cap">
+            <div class="tag">Farm Workshop</div>
+            <h3>Farm Foundations Workshop</h3>
+            <div class="price">From ₦75,000</div>
+          </div>
+        </a>
+        <a href="event.html" class="workshop-card">
+          <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800" alt="Smart Farm Operations Workshop">
+          <div class="cap">
+            <div class="tag">Farm Operations Workshop</div>
+            <h3>Smart Farm Operations Workshop</h3>
+            <div class="price">From ₦100,000</div>
+          </div>
+        </a>
+        <a href="event.html" class="workshop-card">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800" alt="Agribusiness Masterclass">
+          <div class="cap">
+            <div class="tag">Agribusiness Workshop</div>
+            <h3>Agribusiness Masterclass</h3>
+            <div class="price">From ₦250,000</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="section-links">
+        <a href="event.html">See Every Workshop Date →</a>
+        <a href="courses.html">Or learn at your own pace: see the courses →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PATH THREE -->
+  <section class="door dark">
+    <div class="container">
+      <p class="door-label">Path Three</p>
+      <h2>Have It Done For You.</h2>
+      <p style="border-left: 3px solid #2563eb; padding-left: 20px;">
+        Not everyone wants or has the time to become a farming expert. Some people simply want experienced professionals handling the critical decisions.
+        That's why I built a hands-on support system for farmers. We plan, guide, monitor,
+        and protect your farm using the same standards I'd insist on if it were my own investment.
+      </p>
+      <p style="margin-top: 16px; opacity: 0.85;">
+        What you pay is one clear fee for that work, agreed upfront.
+        Anything a third party charges (inputs, labour, equipment, or government processes) is never part of that fee.
+        You see those costs separately, every time.
+      </p>
+
+      <!-- Farm Setup & Protection -->
+      <p class="sub-label">Farm Setup & Protection</p>
+      <p class="sub-desc">Buying land or starting a farm? Know exactly what you're committing to before you put money down.</p>
+
+      <div class="service-list">
+        <div class="service-row">
+          <a href="contact.html">
+            <div>
+              <h3>Safe Farmland Acquisition</h3>
+              <p>A clear buy, fix-first, or walk-away verdict before you pay for any land.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">From ₦1,500,000</span>
+            </div>
+          </a>
+        </div>
+        <div class="service-row">
+          <a href="contact.html">
+            <div>
+              <h3>Farm Readiness Assessment</h3>
+              <p>Know exactly what the land and location can support before you invest heavily.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">From ₦1,500,000</span>
+              <span class="meta">Flat fee · larger projects quoted on scope</span>
+            </div>
+          </a>
+        </div>
+        <div class="service-row">
+          <a href="contact.html">
+            <div>
+              <h3>Farm Documentation & Title Support</h3>
+              <p>Your clean land purchase, properly documented all the way to the end.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">From ₦1,500,000</span>
+              <span class="meta">Flat fee · government and legal costs separate</span>
+            </div>
+          </a>
+        </div>
+        <div class="service-row">
+          <a href="contact.html">
+            <div>
+              <h3>Land Title Cleanup</h3>
+              <p>An honest verdict on problematic papers, and the cleanup process if it can still be saved.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">From ₦2,000,000</span>
+              <span class="meta">Honest salvageability verdict before we charge for cleanup</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Professional Directory -->
+      <p class="sub-label">Professional Support</p>
+      <p class="sub-desc">Need one trusted professional instead of a full engagement? Access vetted experts we'd confidently recommend ourselves.</p>
+
+      <div class="service-list">
+        <div class="service-row">
+          <a href="contact.html">
+            <div>
+              <h3>Vetted Farm Professionals Directory</h3>
+              <p>A vetted introduction to a professional (agronomist, farm manager, farm strategist, etc.) we would confidently recommend ourselves.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">₦25,000</span>
+              <span class="meta">Per introduction</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEYOND / PRINCIPAL'S MANDATE -->
+  <section class="door light">
+    <div class="container">
+      <p class="door-label">Beyond Support</p>
+      <h2>For Farms That Demand Full Control.</h2>
+      <p>When you want one accountable partner from planning to harvest.</p>
+
+      <div class="service-list" style="border-top: 1px solid rgba(0,0,0,0.1);">
+        <div class="service-row">
+          <a href="contact.html">
+            <div>
+              <h3>Full Farm Mandate</h3>
+              <p>Plan, set up, manage, and deliver — end to end, under one clear mandate.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">From ₦100,000,000</span>
+              <span class="meta">Full project mandate</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <p class="sub-label" style="color:#2563eb;">Own Your Farm Projects</p>
+      <p class="sub-desc">FarmReady provides comprehensive support for your farming ventures.</p>
+      <a href="https://farmready.vercel.app" style="color:#2563eb; font-weight:600;">View FarmReady →</a>
+    </div>
+  </section>
+
+  <!-- ASSESSMENT CTA -->
+  <section class="cta-box">
+    <h2>Not Sure Where to Start?</h2>
+    <p>Every farm journey is different. Answer a few questions and I'll point you toward the support that's right for your situation — even if the best advice is that you don't need us yet.</p>
+    <a href="contact.html" class="btn">Take the 2-Minute Assessment</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <h2 class="footer-heading">
+          <span>Join our newsletter</span> for<br>
+          tips, advice and<br>
+          offers!
+        </h2>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Enter your email">
+          <button type="submit">Subscribe ✉</button>
+        </form>
+        <p class="newsletter-note">
+          By signing up to receive emails from Dr Cornelius Adewale, you agree to our
+          <a href="privacy.html">Privacy Policy</a>.
+          We treat your info responsibly. Unsubscribe anytime.
+        </p>
+      </div>
+      <div>
+        <p class="sitemap-label">Sitemap</p>
+        <ul class="sitemap-list">
+          <li><a href="Cornelius.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="get-protected.html">Get Protected</a></li>
+          <li><a href="event.html">Events</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="insights.html">Insights</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+  </script>
+
+</body>
+</html>

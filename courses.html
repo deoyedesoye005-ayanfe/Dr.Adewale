@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses | Dr Cornelius Adewale</title>
+  <meta name="description" content="Self-paced courses on starting farms safely, managing production, and protecting your investment.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Inter, "DM Sans", system-ui, sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV (FIXED) */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px; background: #0a0e1a; color: #fff;
+    }
+    .nav-logo {
+      font-weight: 700; font-size: 1.15rem; letter-spacing: 0.04em; z-index: 1001;
+    }
+    .nav-links { display: flex; gap: 32px; font-size: 0.95rem; }
+    .nav-links a { opacity: 0.85; }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; }
+    .nav-cta {
+      background: #2563eb; color: #fff; padding: 12px 24px;
+      border-radius: 999px; font-size: 0.95rem; font-weight: 600;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 1001;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      transition: 0.3s;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: flex-end;
+      padding: 160px 48px 120px; color: #fff; background: #0a0e1a; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://corneliusadewale.com/wp-content/uploads/2021/01/cornelius-adewale-4.jpg') center/cover no-repeat;
+      filter: brightness(0.48);
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,14,26,0.95) 0%, rgba(10,14,26,0.55) 50%, rgba(10,14,26,0.25) 100%);
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 900px; }
+    .hero-label {
+      font-size: 0.95rem; letter-spacing: 0.14em; text-transform: uppercase;
+      opacity: 0.85; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: "Space Grotesk", Manrope, "DM Sans", system-ui, sans-serif;
+      font-size: clamp(3.2rem, 7vw, 5.2rem); font-weight: 500;
+      line-height: 1.08; letter-spacing: -0.04em; margin-bottom: 28px;
+    }
+    .hero p {
+      font-size: 1.35rem; max-width: 640px; opacity: 0.92;
+      line-height: 1.7; margin-bottom: 36px;
+    }
+
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 48px; width: 100%; }
+
+    /* SECTIONS */
+    .section { padding: 140px 0; }
+    .section.dark { background: #0a0e1a; color: #fff; }
+    .section.light { background: #f5f5f5; }
+    .section h2 {
+      font-family: "Space Grotesk", Manrope, "DM Sans", system-ui, sans-serif;
+      font-size: clamp(2.6rem, 5vw, 3.8rem); font-weight: 500;
+      letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 56px; max-width: 800px;
+    }
+
+    /* COURSE CARDS */
+    .courses-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; width: 100%;
+    }
+    .course-card {
+      background: #141820; border-radius: 16px; overflow: hidden;
+      display: flex; flex-direction: column; transition: transform 0.25s; color: #fff;
+      min-height: 480px;
+    }
+    .course-card:hover { transform: translateY(-6px); }
+    .course-card img {
+      width: 100%; height: 320px; object-fit: cover; display: block;
+    }
+    .course-card .body { padding: 28px 24px 32px;
+      flex: 1;
+      flex-direction: column;
+      display: flex;
+    }
+    .course-card .level {
+      font-size: 0.85rem; letter-spacing: 0.09em; text-transform: uppercase;
+      color: #60a5fa; margin-bottom: 12px;
+    }
+    .course-card h3 {
+      font-family: "Space Grotesk", Manrope, "DM Sans", system-ui, sans-serif;
+      font-size: 1.35rem; font-weight: 500; margin-bottom: 10px; line-height: 1.3;
+    }
+    .course-card .desc {
+      font-size: 0.95rem; opacity: 0.8; margin-bottom: 20px; line-height: 1.5; flex: 1;
+    }
+    .course-card .black {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 1rem;
+    }
+    .course-card .status { color: #4ade80; font-size: 0.9rem; }
+    .course-card .status.soon { color: #fbbf24; }
+    .course-card .price { font-weight: 600; }
+
+    /* TESTIMONIALS */
+    .testimonials {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 48px;
+    }
+    .testimonial {
+      background: #141820; border-radius: 14px; padding: 36px 30px; color: #fff;
+    }
+    .testimonial p {
+      font-size: 1.1rem; opacity: 0.9; margin-bottom: 28px; line-height: 1.7;
+    }
+    .testimonial .author { font-weight: 600; font-size: 1.1rem; }
+    .testimonial .role { font-size: 0.95rem; opacity: 0.7; margin-top: 4px; }
+
+    /* CTA */
+    .cta-box {
+      background: #0a0e1a; color: #fff; padding: 120px 48px; text-align: center;
+    }
+    .cta-box h2 {
+      font-family: "Space Grotesk", Manrope, "DM Sans", system-ui, sans-serif;
+      font-size: 2.8rem; font-weight: 500; margin-bottom: 20px;
+    }
+    .cta-box p {
+      opacity: 0.85; max-width: 540px; margin: 0 auto 36px; font-size: 1.25rem;
+    }
+    .cta-box a.btn {
+      display: inline-block; background: #2563eb; color: #fff;
+      padding: 18px 40px; border-radius: 999px; font-weight: 600; font-size: 1.1rem;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #0a0e1a; color: #fff; padding: 90px 48px 60px;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.5fr 1fr; gap: 70px;
+    }
+    .footer-heading {
+      font-family: "Space Grotesk", Manrope, "DM Sans", system-ui, sans-serif;
+      font-size: 2.2rem; font-weight: 500; line-height: 1.25; margin-bottom: 32px;
+    }
+    .footer-heading span { color: #60a5fa; }
+    .newsletter-form {
+      display: flex; gap: 14px; max-width: 500px; margin-bottom: 18px;
+    }
+    .newsletter-form input {
+      flex: 1; padding: 16px 22px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25); background: transparent;
+      color: #fff; font-size: 1.05rem; outline: none;
+    }
+    .newsletter-form button {
+      background: #2563eb; color: #fff; border: none;
+      padding: 16px 30px; border-radius: 999px; font-weight: 600;
+      font-size: 1.05rem; cursor: pointer; white-space: nowrap;
+    }
+    .newsletter-note { font-size: 0.85rem; color: #888; max-width: 440px; }
+    .newsletter-note a { color: #60a5fa; text-decoration: underline; }
+    .sitemap-label {
+      font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #888; margin-bottom: 22px;
+    }
+    .sitemap-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .sitemap-list a { color: #60a5fa; font-size: 1.05rem; }
+
+    @media (max-width: 1100px) {
+      .courses-grid { grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      }
+      .course-card img { height: 280px; }
+    }
+    @media (max-width: 900px) {
+      .nav {
+        padding: 16px 20px;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: #0a0e1a;
+        flex-direction: column;
+        padding: 100px 32px 40px;
+        gap: 24px;
+        transition: right 0.3s ease;
+        box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+        z-index: 1000;
+      }
+
+      .nav-links.open {
+        right: 0;
+      }
+
+      .nav-links a {
+        font-size: 1.1rem;
+        opacity: 1;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .courses-grid, .testimonials { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .hero { padding: 120px 24px 80px; min-height: 90vh; }
+      .container { padding: 0 24px; }
+      .section { padding: 80px 0; }
+      .hero h1 { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV (FIXED) -->
+  <nav class="nav">
+    <a href="Cornelius.html" class="nav-logo">CORNELIUS ADEWALE</a>
+
+    <div class="nav-links" id="navLinks">
+      <a href="Cornelius.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="get-protected.html">Get Protected</a>
+      <a href="event.html">Events</a>
+      <a href="courses.html" class="active">Courses</a>
+      <a href="resources.html">Resources</a>
+      <a href="insights.html">Insights</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <a href="contact.html" class="nav-cta">Work With Me →</a>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-label">Learn With Me</p>
+      <h1>Stop making expensive farm decisions without knowing what to look for.</h1>
+      <p>Learn exactly how to start a farm, manage production, and protect your investment from someone who has actually done the work. Self-paced, at your own speed, whenever you are ready.</p>
+    </div>
+  </header>
+
+  <!-- EVERY COURSE -->
+  <section class="section dark" id="courses">
+    <div class="container">
+      <p style="font-size:0.9rem; letter-spacing:0.12em; text-transform:uppercase; color:#888; margin-bottom:16px;">Every Course</p>
+      <h2>Start where you are</h2>
+      <p style="font-size:1.2rem; opacity:0.85; max-width:600px; margin-bottom:56px;">Choose the course that matches your next move.</p>
+
+      <div class="courses-grid">
+        <!-- Course 1 -->
+        <a href="#" class="course-card">
+          <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800" alt="Farm Foundations Blueprint">
+          <div class="body">
+            <div class="level">Beginner
+            <h3>Farm Foundations Blueprint</h3>
+            <p class="desc">Starting your farm the right way — the core decisions before you put money in the ground.</p>
+            </div>
+            <div class="black">
+              <span class="status">● Available Now</span>
+              <span class="price">₦99,000</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Course 2 -->
+        <a href="#" class="course-card">
+          <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800" alt="How to Run a Farm Properly">
+          <div class="body">
+            <div class="level">Intermediate</div>
+            <h3>How to Run a Farm Properly</h3>
+            <p class="desc">The farmer's protection guide — systems, labour, and cost control when real money is on the line.</p>
+            <div class="footer">
+              <span class="status">● Available Now</span>
+              <span class="price">₦150,000</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Course 3 -->
+        <a href="#" class="course-card">
+          <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800" alt="The Safe Farmland Formula">
+          <div class="body">
+            <div class="level">Beginner</div>
+            <h3>The Safe Farmland Formula</h3>
+            <p class="desc">How to buy farmland in Nigeria — and actually keep it.</p>
+            <div class="footer">
+              <span class="status">● Available Now</span>
+              <span class="price">₦65,000</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Course 4 -->
+        <a href="#" class="course-card">
+          <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800" alt="The Agribusiness Investor Playbook">
+          <div class="body">
+            <div class="level">Advanced</div>
+            <h3>The Agribusiness Investor Playbook</h3>
+            <p class="desc">The investor masterclass — scaling farms and building real agribusiness wealth.</p>
+            <div class="black">
+              <span class="status">● Available Now</span>
+              <span class="price">₦500,000</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section dark" style="padding-top:40px;">
+    <div class="container">
+      <h2>What students are saying.</h2>
+
+      <div class="testimonials">
+        <div class="testimonial">
+          <p>"Clear and practical teaching. The advice on how to choose reliable farm hands and manage input costs was especially useful."</p>
+          <div class="author">Olajumi Ayomide</div>
+        </div>
+        <div class="testimonial">
+          <p>"A well-packaged course full of real knowledge every serious farmer needs. Looking forward to the next one."</p>
+          <div class="author">Malik O.</div>
+        </div>
+        <div class="testimonial">
+          <p>"I attended one of his sessions thinking I knew enough to start a farm. I didn't. Cornelius broke down everything — from soil testing to proper record-keeping. I learned more in one course than from weeks of YouTube videos. My farm is now on track."</p>
+          <div class="author">Tunde B.</div>
+          <div class="role">First-Time Farmer, Lagos</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-box">
+    <h2>Ready to stop guessing?</h2>
+    <p>Choose the course that matches where you are right now and start learning at your own pace.</p>
+    <a href="#courses" class="btn">Explore Our Courses</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <h2 class="footer-heading">
+          <span>Join our newsletter</span> for<br>
+          tips, advice and<br>
+          offers!
+        </h2>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Enter your email">
+          <button type="submit">Subscribe ✉</button>
+        </form>
+        <p class="newsletter-note">
+          By signing up to receive emails from Dr Cornelius Adewale, you agree to our
+          <a href="privacy.html">Privacy Policy</a>.
+          We treat your info responsibly. Unsubscribe anytime.
+        </p>
+      </div>
+      <div>
+        <p class="sitemap-label">Sitemap</p>
+        <ul class="sitemap-list">
+          <li><a href="Cornelius.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="get-protected.html">Get Protected</a></li>
+          <li><a href="event.html">Events</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="insights.html">Insights</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Protected | Dr Cornelius Adewale</title>
+  <meta name="description" content="Every farm decision deserves protection. Guidance, workshops, and practical support to help you protect your farm investment and make informed decisions.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      background: #0a0e1a;
+      color: #fff;
+    }
+    .nav-logo { font-weight: 700; font-size: 1.1rem; letter-spacing: 0.04em; }
+    .nav-links { display: flex; gap: 28px; font-size: 0.9rem; }
+    .nav-links a { opacity: 0.85; }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; }
+    .nav-cta {
+      background: #2563eb;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 120px 40px 80px;
+      color: #fff;
+      background: #0a0e1a;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://commons.wikimedia.org/wiki/Special:FilePath/Farmer%20working%20in%20the%20farm.jpg') center/cover no-repeat;
+      filter: brightness(0.5);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,14,26,0.95) 0%, rgba(10,14,26,0.6) 50%, rgba(10,14,26,0.3) 100%);
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 720px; }
+    .hero-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      max-width: 560px;
+      opacity: 0.9;
+      line-height: 1.7;
+    }
+
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 40px; }
+
+    /* DOOR SECTIONS */
+    .door {
+      padding: 100px 0;
+    }
+    .door.dark {
+      background: #0a0e1a;
+      color: #fff;
+    }
+    .door.light {
+      background: #f5f5f5;
+      color: #1a1a1a;
+    }
+    .door-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #60a5fa;
+      margin-bottom: 12px;
+    }
+    .door.light .door-label { color: #2563eb; }
+    .door h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .door > .container > p {
+      font-size: 1.1rem;
+      max-width: 640px;
+      margin-bottom: 48px;
+      opacity: 0.9;
+    }
+
+    /* SERVICE ROWS */
+    .service-list { border-top: 1px solid rgba(255,255,255,0.12); }
+    .door.light .service-list { border-top-color: rgba(0,0,0,0.1); }
+
+    .service-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      transition: background 0.2s;
+    }
+    .door.light .service-row { border-bottom-color: rgba(0,0,0,0.1); }
+    .service-row:hover { background: rgba(255,255,255,0.03); }
+    .door.light .service-row:hover { background: rgba(0,0,0,0.02); }
+
+    .service-row h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .service-row p {
+      font-size: 0.95rem;
+      opacity: 0.75;
+      margin: 0;
+    }
+    .service-price {
+      text-align: right;
+      white-space: nowrap;
+    }
+    .service-price .amount {
+      font-size: 1.15rem;
+      font-weight: 600;
+      display: block;
+    }
+    .service-price .meta {
+      font-size: 0.8rem;
+      opacity: 0.65;
+    }
+    .service-row a {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: inherit;
+    }
+    .arrow { opacity: 0.5; font-size: 1.1rem; }
+
+    /* WORKSHOP CARDS */
+    .workshop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .workshop-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      height: 320px;
+      background: #111;
+    }
+    .workshop-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.85;
+    }
+    .workshop-card .cap {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 24px 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      color: #fff;
+    }
+    .workshop-card .tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 6px;
+    }
+    .workshop-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+    .workshop-card .price {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    .section-links {
+      margin-top: 36px;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .section-links a {
+      color: #60a5fa;
+      font-weight: 600;
+      border-bottom: 1px solid transparent;
+    }
+    .section-links a:hover { border-bottom-color: #60a5fa; }
+    .door.light .section-links a { color: #2563eb; }
+
+    /* SUB-SECTION LABEL */
+    .sub-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #60a5fa;
+      margin: 48px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sub-label::before {
+      content: '';
+      width: 20px;
+      height: 2px;
+      background: #60a5fa;
+    }
+    .sub-desc {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 24px;
+      max-width: 520px;
+    }
+
+    /* CTA BOX */
+    .cta-box {
+      background: #0a0e1a;
+      color: #fff;
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .cta-box h2 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+    .cta-box p {
+      opacity: 0.85;
+      max-width: 520px;
+      margin: 0 auto 28px;
+    }
+    .cta-box a.btn {
+      display: inline-block;
+      background: #2563eb;
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #0a0e1a;
+      color: #fff;
+      padding: 80px 40px 50px;
+    }
+    .footer-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 60px;
+    }
+    .footer-heading {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 28px;
+    }
+    .footer-heading span { color: #60a5fa; }
+    .newsletter-form {
+      display: flex;
+      gap: 12px;
+      max-width: 480px;
+      margin-bottom: 16px;
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: transparent;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+    }
+    .newsletter-form button {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .newsletter-note {
+      font-size: 0.8rem;
+      color: #888;
+      max-width: 420px;
+    }
+    .newsletter-note a { color: #60a5fa; text-decoration: underline; }
+    .sitemap-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 20px;
+    }
+    .sitemap-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sitemap-list a { color: #60a5fa; }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .workshop-grid { grid-template-columns: 1fr; }
+      .service-row { grid-template-columns: 1fr; gap: 8px; }
+      .service-price { text-align: left; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .hero { padding: 100px 24px 60px; }
+      .container { padding: 0 24px; }
+      .door { padding: 70px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">DR CORNELIUS ADEWALE</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="get-protected.html" class="active">Get Protected</a>
+      <a href="event.html">Events</a>
+      <a href="courses.html">Courses</a>
+      <a href="resources.html">Resources</a>
+      <a href="insights.html">Insights</a>
+      <a href="Contact.html">Contact</a>
+    </div>
+    <a href="Contact.html" class="nav-cta">Work With Me →</a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-label">Get Protected</p>
+      <h1>Every Farm Decision Deserves Protection.</h1>
+      <p>Whether you're starting a farm, investing in agriculture, expanding an existing operation, or solving a farm-business problem, one wrong decision can cost you time and money. My job is to help you make the right decision. Choose the kind of support you need below.</p>
+    </div>
+  </header>
+
+  <!-- DOOR ONE -->
+  <section class="door dark">
+    <div class="container">
+      <p class="door-label">Door One</p>
+      <h2>Ask Me First.</h2>
+      <p>Some farm decisions do not need more guesswork. They need the right opinion. If you are about to invest in a farm, choose a production system, enter a market, or make a major agricultural decision, speak to me before you commit.</p>
+
+      <div class="service-list">
+        <div class="service-row">
+          <a href="Contact.html">
+            <div>
+              <h3>Farm Decision Call</h3>
+              <p>One important farm decision, clarified in a focused consultation.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">Contact for Fee</span>
+              <span class="meta">Flat fee · 10 minutes</span>
+            </div>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+        <div class="service-row">
+          <a href="Contact.html">
+            <div>
+              <h3>The Farm Strategy Call</h3>
+              <p>Your farm or agricultural business situation, examined and turned into a clearer strategy.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">Contact for Fee</span>
+              <span class="meta">Flat fee · up to one hour</span>
+            </div>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+        <div class="service-row">
+          <a href="Contact.html">
+            <div>
+              <h3>Farm Discovery Session</h3>
+              <p>An honest assessment of your farm idea or current situation before you commit further.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">Contact for Fee</span>
+              <span class="meta">By location · credited toward your engagement</span>
+            </div>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOOR TWO -->
+  <section class="door light">
+    <div class="container">
+      <p class="door-label">Door Two</p>
+      <h2>Learn With Me.</h2>
+      <p>The best way to avoid expensive farm mistakes is to understand them before they happen. Whether you join a workshop or take a course, the focus is on practical agricultural decisions, systems, strategy, and lessons from real farm-business situations.</p>
+
+      <div class="workshop-grid">
+        <a href="events.html" class="workshop-card">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Farmer%20working%20in%20the%20farm.jpg" alt="Farm Planning Workshop">
+          <div class="cap">
+            <div class="tag">Workshop</div>
+            <h3>Farm Planning Workshop</h3>
+            <div class="price">Contact for Fee</div>
+          </div>
+        </a>
+        <a href="events.html" class="workshop-card">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/A%20Nigerian%20farmer%20farming%20in%20drying%20season.jpg" alt="Farm Investment Workshop">
+          <div class="cap">
+            <div class="tag">Workshop</div>
+            <h3>Farm Investment Workshop</h3>
+            <div class="price">Contact for Fee</div>
+          </div>
+        </a>
+        <a href="events.html" class="workshop-card">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Farmer%20watering%20crops.jpg" alt="Farm Business Masterclass">
+          <div class="cap">
+            <div class="tag">Workshop</div>
+            <h3>Farm Business Masterclass</h3>
+            <div class="price">From Contact for Fee</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="section-links">
+        <a href="events.html">See Every Workshop Date →</a>
+        <a href="courses.html">Or learn at your own pace: see the courses →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOOR THREE -->
+  <section class="door dark">
+    <div class="container">
+      <p class="door-label">Door Three</p>
+      <h2>Have It Done For You.</h2>
+      <p style="border-left: 3px solid #2563eb; padding-left: 20px;">
+        Not everyone wants or has the time to become a farm-business expert. Some people simply want experienced guidance through important agricultural decisions. This support is designed to help assess, plan, structure, and guide farm projects with practical standards.
+      </p>
+      <p style="margin-top: 16px; opacity: 0.85;">
+        The scope and professional fees for each engagement are agreed upfront. Where specialist third-party services are required, those costs remain separate so the work and expenses are clear.
+      </p>
+
+      <!-- Farm Investment Protection -->
+      <p class="sub-label">Farm Investment Protection</p>
+      <p class="sub-desc">Starting or investing in a farm? Understand the opportunity, numbers, risks, and requirements before you commit.</p>
+
+      <div class="service-list">
+        <div class="service-row">
+          <a href="Contact.html">
+            <div>
+              <h3>Farm Investment Assessment</h3>
+              <p>A practical assessment of a proposed farm investment before you commit your capital.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">Contact for Fee</span>
+              <span class="meta">Flat fee · third-party costs quoted separately</span>
+            </div>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+        <div class="service-row">
+          <a href="Contact.html">
+            <div>
+              <h3>Farm Readiness Assessment</h3>
+              <p>Understand whether your farm idea, systems, resources, and plans are ready before you move forward.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">Contact for Fee</span>
+              <span class="meta">Flat fee · buildings above two storeys quoted on scope</span>
+            </div>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+        <div class="service-row">
+          <a href="Contact.html">
+            <div>
+              <h3>Farm Systems Planning</h3>
+              <p>Build a clearer structure around production, market, financial, people, information, infrastructure, and risk decisions.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">Contact for Fee</span>
+              <span class="meta">Flat fee · government and legal costs separate</span>
+            </div>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+        <div class="service-row">
+          <a href="Contact.html">
+            <div>
+              <h3>Farm Problem Diagnosis</h3>
+              <p>An honest assessment of an existing farm problem and the practical steps that may help resolve it.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">Contact for Fee</span>
+              <span class="meta">Honest salvageability verdict BEFORE we charge for cleanup</span>
+            </div>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Professional Network -->
+      <p class="sub-label">Professional Network</p>
+      <p class="sub-desc">Need a specialist for a farm project? Connect with relevant professionals where specialist support is required.</p>
+
+      <div class="service-list">
+        <div class="service-row">
+          <a href="Contact.html">
+            <div>
+              <h3>Vetted-Professional Network</h3>
+              <p>An introduction to a relevant professional for your agricultural project.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">Contact for Fee</span>
+              <span class="meta">Per introduction</span>
+            </div>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEYOND / PRINCIPAL'S MANDATE -->
+  <section class="door light">
+    <div class="container">
+      <p class="door-label">Beyond Protection</p>
+      <h2>For Farm Projects That Demand Absolute Control.</h2>
+      <p>When you want structured guidance from the farm idea through implementation.</p>
+
+      <div class="service-list" style="border-top: 1px solid rgba(0,0,0,0.1);">
+        <div class="service-row">
+          <a href="Contact.html">
+            <div>
+              <h3>Farm Project Mandate</h3>
+              <p>Plan, coordinate, monitor, and guide the major stages of a farm project under one structured mandate.</p>
+            </div>
+            <div class="service-price">
+              <span class="amount">Contact for Fee,000</span>
+              <span class="meta">Full project mandate</span>
+            </div>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <p class="sub-label" style="color:#2563eb;">Farm Ready</p>
+      <p class="sub-desc">A practical starting point for understanding whether your farm idea is ready for investment and implementation.</p>
+      <a href="/projects/bilham" style="color:#2563eb; font-weight:600;">Explore Farm Ready →</a>
+    </div>
+  </section>
+
+  <!-- ASSESSMENT CTA -->
+  <section class="cta-box">
+    <h2>Not Sure Where to Start?</h2>
+    <p>Every farm journey is different. Start with a conversation and get pointed toward the support that fits your situation and the next decision you need to make.</p>
+    <a href="Contact.html" class="btn">Start Your Farm Assessment</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <h2 class="footer-heading">
+          <span>Join our newsletter</span> for<br>
+          tips, advice and<br>
+          offers!
+        </h2>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Enter your email">
+          <button type="submit">Subscribe ✉</button>
+        </form>
+        <p class="newsletter-note">
+          By signing up to receive emails from Dr Cornelius Adewale, you agree to our 
+          <a href="privacy.html">Privacy Policy</a>. 
+          We treat your info responsibly. Unsubscribe anytime.
+        </p>
+      </div>
+      <div>
+        <p class="sitemap-label">Sitemap</p>
+        <ul class="sitemap-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="get-protected.html">Get Protected</a></li>
+          <li><a href="event.html">Events</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="insights.html">Insights</a></li>
+          <li><a href="Contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
