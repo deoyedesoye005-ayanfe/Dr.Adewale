@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm Foundations | Dr Cornelius Adewale</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; overflow-x: hidden; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #fff;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 40px; background: #0a0e1a; color: #fff;
+    }
+    .nav-logo { font-weight: 700; font-size: 1rem; letter-spacing: 0.04em; z-index: 1001; }
+    .nav-links { display: flex; gap: 24px; font-size: 0.9rem; }
+    .nav-links a { opacity: 0.85; }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; }
+    .nav-cta {
+      background: #2563eb; color: #fff; padding: 10px 20px;
+      border-radius: 999px; font-size: 0.9rem; font-weight: 600;
+    }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; z-index: 1001; padding: 4px;
+    }
+    .hamburger span { display: block; width: 24px; height: 2px; background: #fff; transition: 0.3s; }
+
+    .hero {
+      position: relative; min-height: 70vh; padding: 140px 40px 80px;
+      color: #fff; background: #0a0e1a; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://i.pinimg.com/736x/9a/35/1c/9a351c7e681a5b2da28a7f268f428eb4.jpg') center/cover no-repeat;
+      filter: brightness(0.65);
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,14,26,0.95), rgba(10,14,26,0.45));
+    }
+    .hero-inner {
+      position: relative; z-index: 2; max-width: 1140px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: end;
+    }
+    .back {
+      display: inline-block; margin-bottom: 20px; opacity: 0.8; font-size: 0.95rem;
+    }
+    .back:hover { opacity: 1; }
+    .badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+    .badge {
+      font-size: 0.75rem; padding: 6px 12px; border-radius: 999px;
+      background: rgba(255,255,255,0.12); letter-spacing: 0.04em;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1.05;
+      letter-spacing: -0.03em; margin-bottom: 18px;
+    }
+    .hero-desc { font-size: 1.1rem; opacity: 0.9; max-width: 560px; }
+
+    .price-card {
+      background: #fff; color: #111; border-radius: 16px; padding: 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+    .price-card .label { font-size: 0.85rem; color: #666; margin-bottom: 6px; }
+    .price-card .amount { font-size: 2.2rem; font-weight: 700; margin-bottom: 6px; }
+    .price-card .meta { font-size: 0.9rem; color: #666; margin-bottom: 20px; }
+    .price-card .btn {
+      display: block; text-align: center; background: #64748b; color: #fff;
+      padding: 14px 20px; border-radius: 999px; font-weight: 600;
+    }
+    .price-card .note {
+      margin-top: 12px; font-size: 0.85rem; color: #666; text-align: center;
+    }
+
+    .section { padding: 80px 0; }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 40px; }
+    .section h2 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 24px; letter-spacing: -0.02em;
+    }
+    .learn-list { list-style: none; display: grid; gap: 14px; max-width: 720px; }
+    .learn-list li {
+      position: relative; padding-left: 28px; font-size: 1.05rem; color: #333;
+    }
+    .learn-list li::before {
+      content: "✓"; position: absolute; left: 0; color: #2563eb; font-weight: 700;
+    }
+
+    .who-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 12px;
+    }
+    .who-item {
+      background: #f5f5f5; border-radius: 12px; padding: 20px;
+    }
+    .who-item h3 { font-size: 1.05rem; margin-bottom: 6px; }
+    .who-item p { font-size: 0.95rem; color: #555; margin: 0; }
+
+    .cta {
+      background: #0a0e1a; color: #fff; text-align: center; padding: 90px 40px;
+    }
+    .cta h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 14px; }
+    .cta p { opacity: 0.85; max-width: 480px; margin: 0 auto 24px; }
+    .cta a {
+      display: inline-block; background: #2563eb; color: #fff;
+      padding: 14px 28px; border-radius: 999px; font-weight: 600;
+    }
+
+    .footer {
+      background: #0a0e1a; color: #fff; padding: 70px 40px 45px;
+    }
+    .footer-inner {
+      max-width: 1140px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.5fr 1fr; gap: 50px;
+    }
+    .footer-heading { font-size: 1.8rem; margin-bottom: 20px; }
+    .footer-heading span { color: #60a5fa; }
+    .newsletter-form { display: flex; gap: 10px; max-width: 460px; margin-bottom: 12px; }
+    .newsletter-form input {
+      flex: 1; min-width: 0; padding: 12px 18px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25); background: transparent; color: #fff;
+    }
+    .newsletter-form button {
+      background: #2563eb; color: #fff; border: none; padding: 12px 22px;
+      border-radius: 999px; font-weight: 600; cursor: pointer;
+    }
+    .newsletter-note { font-size: 0.8rem; color: #888; }
+    .newsletter-note a { color: #60a5fa; text-decoration: underline; }
+    .sitemap-label {
+      font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #888; margin-bottom: 16px;
+    }
+    .sitemap-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .sitemap-list a { color: #60a5fa; }
+
+    @media (max-width: 900px) {
+      .nav { padding: 16px; }
+      .nav-links {
+        position: fixed; top: 0; right: -100%; width: min(280px, 85vw); height: 100vh;
+        background: #0a0e1a; flex-direction: column; padding: 100px 32px 40px;
+        gap: 22px; transition: right 0.3s ease; z-index: 1000;
+      }
+      .nav-links.open { right: 0; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+      .hamburger.active span:nth-child(2) { opacity: 0; }
+      .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+      .hero { padding: 120px 16px 60px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 28px; }
+      .container { padding: 0 16px; }
+      .who-grid { grid-template-columns: 1fr; }
+      .footer { padding: 60px 16px 40px; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .newsletter-form { flex-direction: column; }
+      .cta { padding: 70px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">DR CORNELIUS ADEWALE</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="get-protected.html">Get Protected</a>
+      <a href="event.html">Events</a>
+      <a href="courses.html" class="active">Courses</a>
+      <a href="resources.html">Resources</a>
+      <a href="insights.html">Insights</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Work With Me →</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-inner">
+      <div>
+        <a href="courses.html" class="back">← Back to Courses</a>
+        <div class="badges">
+          <span class="badge">Farm Foundations</span>
+          <span class="badge">Beginner</span>
+        </div>
+        <h1>Farm Foundation Blueprint</h1>
+        <p class="hero-desc">
+          The practical starting point for anyone entering farming as a business —
+          land decisions, systems, and the mistakes that cost first-time farmers the most.
+          This course is being finalised and will open soon.
+        </p>
+      </div>
+
+      <div class="price-card">
+        <div class="label">Price</div>
+        <div class="amount">₦00,000</div>
+        <div class="meta">Lifetime access · Launching soon</div>
+        <a href="contact.html" class="btn">Notify Me When It Opens</a>
+        <p class="note">Join the waitlist. We’ll message you when enrollment opens.</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <h2>What you’ll learn</h2>
+      <ul class="learn-list">
+        <li>How to think about a farm as a business, not only as land and labour</li>
+        <li>What to check before you put money into land or production</li>
+        <li>The basic systems every farm needs from day one</li>
+        <li>Common first-year mistakes and how to avoid them</li>
+        <li>How to plan a season with clearer costs and outcomes</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" style="background:#f7f7f7;">
+    <div class="container">
+      <h2>Who this is for</h2>
+      <div class="who-grid">
+        <div class="who-item">
+          <h3>First-time farm investors</h3>
+          <p>You’re about to put money into farming and want a clear starting map.</p>
+        </div>
+        <div class="who-item">
+          <h3>New farm operators</h3>
+          <p>You’ve started, but systems and decisions still feel messy.</p>
+        </div>
+        <div class="who-item">
+          <h3>Professionals entering agribusiness</h3>
+          <p>You’re moving into farming from another field and need practical foundations.</p>
+        </div>
+        <div class="who-item">
+          <h3>Anyone tired of guessing</h3>
+          <p>You want structure before the next costly experiment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>This course isn’t open yet.</h2>
+    <p>Get on the list and we’ll notify you as soon as Farm Foundations is ready for enrollment.</p>
+    <a href="contact.html">Join the Waitlist</a>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <h2 class="footer-heading">
+          <span>Join our newsletter</span> for<br>tips, advice and<br>offers!
+        </h2>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Enter your email">
+          <button type="submit">Subscribe ✉</button>
+        </form>
+        <p class="newsletter-note">
+          By signing up you agree to our <a href="privacy.html">Privacy Policy</a>.
+        </p>
+      </div>
+      <div>
+        <p class="sitemap-label">Sitemap</p>
+        <ul class="sitemap-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="get-protected.html">Get Protected</a></li>
+          <li><a href="event.html">Events</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="insights.html">Insights</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>

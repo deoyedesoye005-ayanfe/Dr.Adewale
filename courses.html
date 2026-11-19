@@ -13,16 +13,19 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    html { width: 100%; overflow-x: hidden; }
     body {
       font-family: Inter, "DM Sans", system-ui, sans-serif;
       line-height: 1.6;
       color: #1a1a1a;
       background: #fff;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
     a { text-decoration: none; color: inherit; }
 
-    /* NAV (FIXED) */
     .nav {
       position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 1000;
       display: flex; align-items: center; justify-content: space-between;
@@ -39,7 +42,6 @@
       border-radius: 999px; font-size: 0.95rem; font-weight: 600;
     }
 
-    /* Hamburger */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -58,7 +60,6 @@
       transition: 0.3s;
     }
 
-    /* HERO */
     .hero {
       position: relative; min-height: 100vh;
       display: flex; align-items: flex-end;
@@ -90,133 +91,493 @@
 
     .container { max-width: 1400px; margin: 0 auto; padding: 0 48px; width: 100%; }
 
-    /* SECTIONS */
-    .section { padding: 140px 0; }
-    .section.dark { background: #0a0e1a; color: #fff; }
-    .section.light { background: #f5f5f5; }
-    .section h2 {
-      font-family: "Space Grotesk", Manrope, "DM Sans", system-ui, sans-serif;
-      font-size: clamp(2.6rem, 5vw, 3.8rem); font-weight: 500;
-      letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 56px; max-width: 800px;
+    .course-section {
+      width: 100%;
+      padding: 80px 4% 90px;
+      background: #101113;
+      color: #fff;
     }
 
-    /* COURSE CARDS */
-    .courses-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; width: 100%;
+    a.course-item {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+      min-width: 0;
     }
-    .course-card {
-      background: #141820; border-radius: 16px; overflow: hidden;
-      display: flex; flex-direction: column; transition: transform 0.25s; color: #fff;
-      min-height: 480px;
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 22px;
+      align-items: start;
     }
-    .course-card:hover { transform: translateY(-6px); }
-    .course-card img {
-      width: 100%; height: 320px; object-fit: cover; display: block;
+
+    .course-item { min-width: 0; }
+
+    .course-image {
+      width: 100%;
+      height: 420px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 5px;
+      background: #252525;
     }
-    .course-card .body { padding: 28px 24px 32px;
-      flex: 1;
-      flex-direction: column;
+
+    .course-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .course-item:hover .course-image img {
+      transform: scale(1.04);
+    }
+
+    .course-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.05) 0%,
+        rgba(0, 0, 0, 0.15) 35%,
+        rgba(0, 0, 0, 0.75) 75%,
+        rgba(0, 0, 0, 0.95) 100%
+      );
+    }
+
+    .course-info {
+      position: absolute;
+      bottom: 22px;
+      left: 20px;
+      right: 20px;
+      z-index: 2;
+      color: #ffffff;
+    }
+
+    .course-category {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      color: #d0d0d0;
+      margin-bottom: 13px;
+    }
+
+    .course-info h3 {
+      font-size: 23px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .course-info p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #e0e0e0;
+      margin: 0;
+    }
+
+    .course-meta {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 2px 0;
+      min-height: 48px;
     }
-    .course-card .level {
-      font-size: 0.85rem; letter-spacing: 0.09em; text-transform: uppercase;
-      color: #60a5fa; margin-bottom: 12px;
-    }
-    .course-card h3 {
-      font-family: "Space Grotesk", Manrope, "DM Sans", system-ui, sans-serif;
-      font-size: 1.35rem; font-weight: 500; margin-bottom: 10px; line-height: 1.3;
-    }
-    .course-card .desc {
-      font-size: 0.95rem; opacity: 0.8; margin-bottom: 20px; line-height: 1.5; flex: 1;
-    }
-    .course-card .black {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 1rem;
-    }
-    .course-card .status { color: #4ade80; font-size: 0.9rem; }
-    .course-card .status.soon { color: #fbbf24; }
-    .course-card .price { font-weight: 600; }
 
-    /* TESTIMONIALS */
+    .course-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .coming-soon { color: #e5bd65; }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #e5bd65;
+      flex-shrink: 0;
+    }
+
+    .course-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    /* Testimonials */
+    .testimonials-section {
+      background: #0a0e1a;
+      color: #fff;
+      padding: 100px 0;
+    }
+    .testimonials-section h2 {
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 500;
+      margin-bottom: 40px;
+    }
     .testimonials {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
     }
     .testimonial {
-      background: #141820; border-radius: 14px; padding: 36px 30px; color: #fff;
+      background: #141820;
+      border-radius: 14px;
+      padding: 36px 30px;
+      color: #fff;
     }
     .testimonial p {
-      font-size: 1.1rem; opacity: 0.9; margin-bottom: 28px; line-height: 1.7;
+      font-size: 1.05rem;
+      opacity: 0.9;
+      margin-bottom: 24px;
+      line-height: 1.7;
     }
-    .testimonial .author { font-weight: 600; font-size: 1.1rem; }
-    .testimonial .role { font-size: 0.95rem; opacity: 0.7; margin-top: 4px; }
+    .testimonial .author { font-weight: 600; font-size: 1.05rem; }
+    .testimonial .role { font-size: 0.9rem; opacity: 0.7; margin-top: 4px; }
 
-    /* CTA */
+    /* Compare */
+    .compare-section {
+      background: #fff;
+      padding: 100px 0;
+    }
+    .compare-section .eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 12px;
+    }
+    .compare-section h2 {
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .compare-section .sub {
+      color: #555;
+      margin-bottom: 40px;
+      max-width: 560px;
+    }
+    .compare-table-wrap { overflow-x: auto; }
+    table.compare {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
+    table.compare th,
+    table.compare td {
+      text-align: left;
+      padding: 18px 16px;
+      border-bottom: 1px solid #e5e5e5;
+      vertical-align: top;
+    }
+    table.compare th {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #777;
+      font-weight: 600;
+    }
+    table.compare td { font-size: 0.95rem; }
+    table.compare .name { font-weight: 600; }
+    table.compare .muted { color: #666; font-size: 0.88rem; margin-top: 4px; }
+    table.compare a.more {
+      color: #2563eb;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge-soon {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #b45309;
+      background: #fef3c7;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    /* Why learn */
+    .why-section {
+      background: #0a0e1a;
+      color: #fff;
+      padding: 100px 0;
+    }
+    .why-section .eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 12px;
+    }
+    .why-section h2 {
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 500;
+      margin-bottom: 20px;
+      max-width: 700px;
+    }
+    .why-section .lead {
+      max-width: 640px;
+      opacity: 0.88;
+      font-size: 1.1rem;
+      margin-bottom: 48px;
+    }
+    .why-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .why-stat {
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 20px;
+    }
+    .why-stat .num {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .why-stat .label {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* FAQ */
+    .faq-section {
+      background: #0a0e1a;
+      color: #fff;
+      padding: 100px 0;
+    }
+    .faq-section h2 {
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 500;
+      margin-bottom: 36px;
+    }
+    .faq-list { max-width: 800px; }
+    .faq-item {
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: #fff;
+      text-align: left;
+      padding: 20px 22px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      font-family: inherit;
+    }
+    .faq-question:hover { background: rgba(255,255,255,0.04); }
+    .faq-question .icon {
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+      opacity: 0.7;
+    }
+    .faq-item.open .faq-question .icon { transform: rotate(180deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .faq-answer-inner {
+      padding: 0 22px 20px;
+      color: #b0b0b0;
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-answer { max-height: 280px; }
+
+    /* Not sure */
+    .not-sure {
+      background: #fff;
+      text-align: center;
+      padding: 100px 24px;
+    }
+    .not-sure h2 {
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .not-sure p {
+      max-width: 520px;
+      margin: 0 auto 28px;
+      color: #555;
+      font-size: 1.1rem;
+    }
+    .not-sure a.btn {
+      display: inline-block;
+      background: #111;
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    /* Math */
+    .math-section {
+      background: #2563eb;
+      color: #fff;
+      text-align: center;
+      padding: 90px 24px;
+    }
+    .math-section h2 {
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 500;
+      margin-bottom: 48px;
+    }
+    .math-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto 28px;
+    }
+    .math-item .amount {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .math-item .label {
+      opacity: 0.9;
+      font-size: 1rem;
+    }
+    .math-note {
+      opacity: 0.95;
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+
+    /* Final CTA */
     .cta-box {
-      background: #0a0e1a; color: #fff; padding: 120px 48px; text-align: center;
+      background: #0a0e1a;
+      color: #fff;
+      padding: 120px 48px;
+      text-align: center;
     }
     .cta-box h2 {
-      font-family: "Space Grotesk", Manrope, "DM Sans", system-ui, sans-serif;
-      font-size: 2.8rem; font-weight: 500; margin-bottom: 20px;
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 500;
+      margin-bottom: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .cta-box p {
-      opacity: 0.85; max-width: 540px; margin: 0 auto 36px; font-size: 1.25rem;
+      opacity: 0.85;
+      max-width: 540px;
+      margin: 0 auto 36px;
+      font-size: 1.2rem;
     }
     .cta-box a.btn {
-      display: inline-block; background: #2563eb; color: #fff;
-      padding: 18px 40px; border-radius: 999px; font-weight: 600; font-size: 1.1rem;
+      display: inline-block;
+      background: #2563eb;
+      color: #fff;
+      padding: 18px 40px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 1.1rem;
     }
 
-    /* FOOTER */
     .footer {
-      background: #0a0e1a; color: #fff; padding: 90px 48px 60px;
+      background: #0a0e1a;
+      color: #fff;
+      padding: 90px 48px 60px;
     }
     .footer-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: grid; grid-template-columns: 1.5fr 1fr; gap: 70px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 70px;
     }
     .footer-heading {
-      font-family: "Space Grotesk", Manrope, "DM Sans", system-ui, sans-serif;
-      font-size: 2.2rem; font-weight: 500; line-height: 1.25; margin-bottom: 32px;
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      font-size: 2.2rem;
+      font-weight: 500;
+      line-height: 1.25;
+      margin-bottom: 32px;
     }
     .footer-heading span { color: #60a5fa; }
     .newsletter-form {
-      display: flex; gap: 14px; max-width: 500px; margin-bottom: 18px;
+      display: flex;
+      gap: 14px;
+      max-width: 500px;
+      margin-bottom: 18px;
     }
     .newsletter-form input {
-      flex: 1; padding: 16px 22px; border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.25); background: transparent;
-      color: #fff; font-size: 1.05rem; outline: none;
+      flex: 1;
+      min-width: 0;
+      padding: 16px 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: transparent;
+      color: #fff;
+      font-size: 1.05rem;
+      outline: none;
     }
     .newsletter-form button {
-      background: #2563eb; color: #fff; border: none;
-      padding: 16px 30px; border-radius: 999px; font-weight: 600;
-      font-size: 1.05rem; cursor: pointer; white-space: nowrap;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 16px 30px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 1.05rem;
+      cursor: pointer;
+      white-space: nowrap;
     }
     .newsletter-note { font-size: 0.85rem; color: #888; max-width: 440px; }
     .newsletter-note a { color: #60a5fa; text-decoration: underline; }
     .sitemap-label {
-      font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
-      color: #888; margin-bottom: 22px;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 22px;
     }
     .sitemap-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
     .sitemap-list a { color: #60a5fa; font-size: 1.05rem; }
 
     @media (max-width: 1100px) {
-      .courses-grid { grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
+      .course-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 25px;
       }
-      .course-card img { height: 280px; }
+      .course-image { height: 400px; }
+      .why-stats { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width: 900px) {
-      .nav {
-        padding: 16px 20px;
-      }
 
+    @media (max-width: 900px) {
+      .nav { padding: 16px; }
       .nav-links {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 280px;
+        width: min(280px, 85vw);
         height: 100vh;
         background: #0a0e1a;
         flex-direction: column;
@@ -226,49 +587,36 @@
         box-shadow: -4px 0 20px rgba(0,0,0,0.3);
         z-index: 1000;
       }
+      .nav-links.open { right: 0; }
+      .nav-links a { font-size: 1.1rem; opacity: 1; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+      .hamburger.active span:nth-child(2) { opacity: 0; }
+      .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-      .nav-links.open {
-        right: 0;
-      }
-
-      .nav-links a {
-        font-size: 1.1rem;
-        opacity: 1;
-      }
-
-      .nav-cta {
-        display: none;
-      }
-
-      .hamburger {
-        display: flex;
-      }
-
-      .hamburger.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-      }
-      .hamburger.active span:nth-child(2) {
-        opacity: 0;
-      }
-      .hamburger.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
-      }
-
-      .courses-grid, .testimonials { grid-template-columns: 1fr; }
+      .hero { padding: 120px 16px 80px; min-height: 90vh; }
+      .container { padding: 0 16px; }
+      .testimonials { grid-template-columns: 1fr; }
+      .math-grid { grid-template-columns: 1fr; gap: 28px; }
       .footer-inner { grid-template-columns: 1fr; }
-      .hero { padding: 120px 24px 80px; min-height: 90vh; }
-      .container { padding: 0 24px; }
-      .section { padding: 80px 0; }
-      .hero h1 { font-size: 2.8rem; }
+      .footer { padding: 70px 16px 50px; }
+      .cta-box { padding: 90px 16px; }
+      .newsletter-form { flex-direction: column; }
+    }
+
+    @media (max-width: 600px) {
+      .course-section { padding: 50px 16px 60px; }
+      .course-grid { grid-template-columns: 1fr; gap: 25px; }
+      .course-image { height: 380px; }
+      .why-stats { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV (FIXED) -->
   <nav class="nav">
     <a href="index.html" class="nav-logo">CORNELIUS ADEWALE</a>
-
     <div class="nav-links" id="navLinks">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
@@ -279,17 +627,12 @@
       <a href="insights.html">Insights</a>
       <a href="contact.html">Contact</a>
     </div>
-
     <a href="contact.html" class="nav-cta">Work With Me →</a>
-
     <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </button>
   </nav>
 
-  <!-- HERO -->
   <header class="hero">
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
@@ -300,105 +643,299 @@
     </div>
   </header>
 
-  <!-- EVERY COURSE -->
-  <section class="section dark" id="courses">
-    <div class="container">
-      <p style="font-size:0.9rem; letter-spacing:0.12em; text-transform:uppercase; color:#888; margin-bottom:16px;">Every Course</p>
-      <h2>Start where you are</h2>
-      <p style="font-size:1.2rem; opacity:0.85; max-width:600px; margin-bottom:56px;">Choose the course that matches your next move.</p>
+  <section class="course-section" id="courses">
+    <p style="font-size:0.9rem; letter-spacing:0.12em; text-transform:uppercase; color:#888; margin-bottom:16px;">Every Course</p>
+    <h1 style="color: white; font-size: clamp(2.4rem, 6vw, 4.2rem); font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 500; margin-bottom: 12px;">Start where you are</h1>
+    <p style="font-size:1.2rem; opacity:0.85; max-width:600px; margin-bottom:56px; color: white;">Choose the course that matches your next move.</p>
 
-      <div class="courses-grid">
-        <!-- Course 1 -->
-        <a href="#" class="course-card">
-          <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800" alt="Farm Foundations Blueprint">
-          <div class="body">
-            <div class="level">Beginner
+    <div class="course-grid">
+      <a href="farmfoundation.html" class="course-item">
+        <div class="course-image">
+          <img src="images/IMG-20180516-WA0305.jpg.jpeg" alt="Farm Foundations Blueprint">
+          <div class="course-overlay"></div>
+          <div class="course-info">
+            <span class="course-category">BEGINNER</span>
             <h3>Farm Foundations Blueprint</h3>
-            <p class="desc">Starting your farm the right way — the core decisions before you put money in the ground.</p>
-            </div>
-            <div class="black">
-              <span class="status">● Available Now</span>
-              <span class="price">₦99,000</span>
-            </div>
+            <p>Starting your farm the right way — the core decisions before you put money in the ground.</p>
           </div>
-        </a>
+        </div>
+        <div class="course-meta">
+          <span class="course-status coming-soon"><span class="status-dot"></span>Coming Soon</span>
+          <span class="course-price">₦----</span>
+        </div>
+      </a>
 
-        <!-- Course 2 -->
-        <a href="#" class="course-card">
-          <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800" alt="How to Run a Farm Properly">
-          <div class="body">
-            <div class="level">Intermediate</div>
+      <a href="runfarmland.html" class="course-item">
+        <div class="course-image">
+          <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800" alt="How to Run a Farm Properly">
+          <div class="course-overlay"></div>
+          <div class="course-info">
+            <span class="course-category">INTERMEDIATE</span>
             <h3>How to Run a Farm Properly</h3>
-            <p class="desc">The farmer's protection guide — systems, labour, and cost control when real money is on the line.</p>
-            <div class="footer">
-              <span class="status">● Available Now</span>
-              <span class="price">₦150,000</span>
-            </div>
+            <p>The farmer's protection guide — systems, labour, and cost control when real money is on the line.</p>
           </div>
-        </a>
+        </div>
+        <div class="course-meta">
+          <span class="course-status coming-soon"><span class="status-dot"></span>Coming Soon</span>
+          <span class="course-price">₦----</span>
+        </div>
+      </a>
 
-        <!-- Course 3 -->
-        <a href="#" class="course-card">
-          <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800" alt="The Safe Farmland Formula">
-          <div class="body">
-            <div class="level">Beginner</div>
+      <a href="samefarmland.html" class="course-item">
+        <div class="course-image">
+          <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800" alt="The Safe Farmland Formula">
+          <div class="course-overlay"></div>
+          <div class="course-info">
+            <span class="course-category">BEGINNER</span>
             <h3>The Safe Farmland Formula</h3>
-            <p class="desc">How to buy farmland in Nigeria — and actually keep it.</p>
-            <div class="footer">
-              <span class="status">● Available Now</span>
-              <span class="price">₦65,000</span>
-            </div>
+            <p>How to buy farmland in Nigeria and protect your investment against costly mistakes.</p>
           </div>
-        </a>
+        </div>
+        <div class="course-meta">
+          <span class="course-status coming-soon"><span class="status-dot"></span>Coming Soon</span>
+          <span class="course-price">₦----</span>
+        </div>
+      </a>
 
-        <!-- Course 4 -->
-        <a href="#" class="course-card">
-          <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800" alt="The Agribusiness Investor Playbook">
-          <div class="body">
-            <div class="level">Advanced</div>
+      <a href="agribusiness.html" class="course-item">
+        <div class="course-image">
+          <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800" alt="Agribusiness Investor Playbook">
+          <div class="course-overlay"></div>
+          <div class="course-info">
+            <span class="course-category">ADVANCED</span>
             <h3>The Agribusiness Investor Playbook</h3>
-            <p class="desc">The investor masterclass — scaling farms and building real agribusiness wealth.</p>
-            <div class="black">
-              <span class="status">● Available Now</span>
-              <span class="price">₦500,000</span>
-            </div>
+            <p>Learn the systems behind building and scaling a profitable agribusiness.</p>
           </div>
-        </a>
-      </div>
+        </div>
+        <div class="course-meta">
+          <span class="course-status coming-soon"><span class="status-dot"></span>Coming Soon</span>
+          <span class="course-price">₦----</span>
+        </div>
+      </a>
     </div>
   </section>
 
   <!-- TESTIMONIALS -->
-  <section class="section dark" style="padding-top:40px;">
+  <section class="testimonials-section">
     <div class="container">
       <h2>What students are saying.</h2>
-
       <div class="testimonials">
         <div class="testimonial">
-          <p>"Clear and practical teaching. The advice on how to choose reliable farm hands and manage input costs was especially useful."</p>
-          <div class="author">Olajumi Ayomide</div>
+          <p>"Clear, practical teaching. I finally understand what to check before putting money into a farm project."</p>
+          <div class="author">A. O.</div>
+          <div class="role">Aspiring farm investor</div>
         </div>
         <div class="testimonial">
-          <p>"A well-packaged course full of real knowledge every serious farmer needs. Looking forward to the next one."</p>
-          <div class="author">Malik O.</div>
+          <p>"I used to guess my way through decisions. The frameworks made the process clearer and less stressful."</p>
+          <div class="author">M. K.</div>
+          <div class="role">Farm operator</div>
         </div>
         <div class="testimonial">
-          <p>"I attended one of his sessions thinking I knew enough to start a farm. I didn't. Cornelius broke down everything — from soil testing to proper record-keeping. I learned more in one course than from weeks of YouTube videos. My farm is now on track."</p>
-          <div class="author">Tunde B.</div>
-          <div class="role">First-Time Farmer, Lagos</div>
+          <p>"Useful even from abroad. I know what questions to ask the people on the ground now."</p>
+          <div class="author">T. B.</div>
+          <div class="role">Diaspora investor</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta-box">
-    <h2>Ready to stop guessing?</h2>
-    <p>Choose the course that matches where you are right now and start learning at your own pace.</p>
-    <a href="#courses" class="btn">Explore Our Courses</a>
+  <!-- COMPARE -->
+  <section class="compare-section">
+    <div class="container">
+      <p class="eyebrow">Compare</p>
+      <h2>Find the right course for your next move.</h2>
+      <p class="sub">Compare the courses below and find the one that matches your current stage.</p>
+      <div class="compare-table-wrap">
+        <table class="compare">
+          <thead>
+            <tr>
+              <th>Course</th>
+              <th>Level</th>
+              <th>Lessons</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="name">Farm Foundations Blueprint</div>
+                <div class="muted">Starting your farm the right way</div>
+              </td>
+              <td>Beginner</td>
+              <td>—</td>
+              <td>₦----</td>
+              <td><span class="badge-soon">Coming Soon</span></td>
+              <td><a class="more" href="farmfoundation.html">More Details</a></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="name">How to Run a Farm Properly</div>
+                <div class="muted">Systems, labour, and cost control</div>
+              </td>
+              <td>Intermediate</td>
+              <td>—</td>
+              <td>₦----</td>
+              <td><span class="badge-soon">Coming Soon</span></td>
+              <td><a class="more" href="runfarmland.html">More Details</a></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="name">The Safe Farmland Formula</div>
+                <div class="muted">Buy farmland and protect your investment</div>
+              </td>
+              <td>Beginner</td>
+              <td>—</td>
+              <td>₦----</td>
+              <td><span class="badge-soon">Coming Soon</span></td>
+              <td><a class="more" href="samefarmland.html">More Details</a></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="name">The Agribusiness Investor Playbook</div>
+                <div class="muted">Build and scale a profitable agribusiness</div>
+              </td>
+              <td>Advanced</td>
+              <td>—</td>
+              <td>₦----</td>
+              <td><span class="badge-soon">Coming Soon</span></td>
+              <td><a class="more" href="agribusiness.html">More Details</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- WHY LEARN -->
+  <section class="why-section">
+    <div class="container">
+      <p class="eyebrow">Why Learn From Me</p>
+      <h2>You are not learning from a theorist.</h2>
+      <p class="lead">
+        Teaching comes from real farms, real decisions, and the same standards used when guiding farmers and investors —
+        not case studies read online. Every course is built so you can apply it to your own situation.
+      </p>
+      <div class="why-stats">
+        <div class="why-stat">
+          <div class="num">100+</div>
+          <div class="label">Farms / projects guided</div>
+        </div>
+        <div class="why-stat">
+          <div class="num">15K+</div>
+          <div class="label">Farmers trained</div>
+        </div>
+        <div class="why-stat">
+          <div class="num">Lifetime</div>
+          <div class="label">Course access</div>
+        </div>
+        <div class="why-stat">
+          <div class="num">Self-paced</div>
+          <div class="label">Learn on your schedule</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <h2>Common questions.</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>What if I'm not ready to start a farm yet?</span>
+            <span class="icon">▾</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              That's exactly when a course helps most. Learning before you put money in the ground is what prevents costly mistakes. Once a course opens, access is lifetime — take it when you’re ready, use it when you move.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>Is it really worth the price?</span>
+            <span class="icon">▾</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              A course costs less than one bad farm decision — the wrong plan, weak systems, or a mistake you didn’t know how to spot. The value shows the first time you catch something early and protect your money.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>What exactly do I get?</span>
+            <span class="icon">▾</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Lifetime access to the video lessons for that course, plus future updates at no extra cost when the course is live.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>Can I get a refund?</span>
+            <span class="icon">▾</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              We want you to be satisfied. If a course isn’t what you expected after it launches, reach out and we’ll work with you. Most people who start want to finish — not reverse the decision.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span>I'm in the diaspora. Is this relevant to me?</span>
+            <span class="icon">▾</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Especially relevant. If you're funding or supervising a farm from abroad, you need to know what to verify remotely, what questions to ask, and how to hold people on the ground accountable.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOT SURE -->
+  <section class="not-sure">
+    <h2>Not sure where to start?</h2>
+    <p>Everyone's farm journey is different. Book a quick call and I'll point you to the right course — or tell you if you don't need one yet.</p>
+    <a href="contact.html" class="btn">Book a Call →</a>
+  </section>
+
+  <!-- MATH -->
+  <section class="math-section">
+    <h2>The math is simple.</h2>
+    <div class="math-grid">
+      <div class="math-item">
+        <div class="amount">From ₦65,000</div>
+        <div class="label">Our courses</div>
+      </div>
+      <div class="math-item">
+        <div class="amount">₦100,000+</div>
+        <div class="label">One strategy call</div>
+      </div>
+      <div class="math-item">
+        <div class="amount">₦5,000,000+</div>
+        <div class="label">One bad farm decision</div>
+      </div>
+    </div>
+    <p class="math-note">A course costs far less than what a single costly farming mistake can take from you.</p>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-box">
+    <h2>Learn it once, use it for every farm decision you make.</h2>
+    <p>Self-paced courses, built so you stop guessing and start deciding with clarity.</p>
+    <a href="#courses" class="btn">Explore Our Courses →</a>
+  </section>
+
   <footer class="footer">
     <div class="footer-inner">
       <div>
@@ -436,12 +973,19 @@
   <script>
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
-
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('active');
       navLinks.classList.toggle('open');
     });
-  </script>
 
+    document.querySelectorAll('.faq-question').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach((el) => el.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
 </body>
 </html>

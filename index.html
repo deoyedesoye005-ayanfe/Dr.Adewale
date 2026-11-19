@@ -20,12 +20,17 @@
         }
         html {
             scroll-behavior: smooth;
+            width: 100%;
+            overflow-x: hidden;
         }
         body {
             font-family: Arial, Helvetica, sans-serif;
             color: #111;
             background: #fff;
             line-height: 1.6;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
         }
         a {
             text-decoration: none;
@@ -40,8 +45,8 @@
         textarea {
             font: inherit;
         }
-        .p-10{
-padding-top: 10rem;
+        .p-10 {
+            padding-top: 10rem;
         }
 
         /* =========================
@@ -49,9 +54,10 @@ padding-top: 10rem;
         ========================== */
 
         .container {
-            width:  min(1180px, 90%);
+            width: 100%;
+            max-width: 1180px;
             margin: 0 auto;
-            padding: 0 42px ;
+            padding: 0 42px;
         }
 
         .section {
@@ -115,17 +121,13 @@ padding-top: 10rem;
             right: 0;
             width: 100%;
             z-index: 1000;
-
             display: flex;
             align-items: center;
             justify-content: space-between;
-
             padding: 18px 42px;
-
             background: rgba(10, 14, 26, 0.94);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-
             color: #fff;
         }
 
@@ -170,7 +172,6 @@ padding-top: 10rem;
             transform: translateY(-1px);
         }
 
-        /* Hamburger */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -196,11 +197,12 @@ padding-top: 10rem;
 
         .hero {
             min-height: 760px;
+            width: 100%;
             display: flex;
             align-items: center;
-            background-image: url("images/Dr.\ Adewale\ assesses\ thriving\ crops.png");
+            background-image: url("images/Dr. Adewale assesses thriving crops.png");
             background-size: cover;
-            background-position: center;
+            background-position: center center;
             background-repeat: no-repeat;
             position: relative;
         }
@@ -234,9 +236,9 @@ padding-top: 10rem;
             color: white;
         }
         .hero-content h1 {
-            font-size: clamp(52px, 7vw, 92px);
+            font-size: clamp(36px, 7vw, 92px);
             line-height: 0.98;
-            letter-spacing: -4px;
+            letter-spacing: -2px;
             max-width: 760px;
             margin-bottom: 30px;
             color: white;
@@ -255,27 +257,6 @@ padding-top: 10rem;
             display: flex;
             gap: 14px;
             flex-wrap: wrap;
-        }
-
-        .hero-image {
-            height: 600px;
-            background: #ddd;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .image-placeholder {
-            color: #777;
-            font-size: 14px;
-            text-align: center;
         }
 
         /* =========================
@@ -359,17 +340,14 @@ padding-top: 10rem;
             align-items: center;
             justify-content: center;
             position: relative;
+            overflow: hidden;
         }
 
-        .play-button {
-            width: 76px;
-            height: 76px;
-            border-radius: 50%;
-            border: 1px solid #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 25px;
+        .video-box iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+            border: 0;
         }
 
         /* =========================
@@ -549,9 +527,9 @@ padding-top: 10rem;
         }
 
         .final-cta h2 {
-            font-size: clamp(45px, 7vw, 85px);
+            font-size: clamp(36px, 7vw, 85px);
             line-height: 0.98;
-            letter-spacing: -3px;
+            letter-spacing: -2px;
             margin-bottom: 30px;
         }
 
@@ -562,117 +540,124 @@ padding-top: 10rem;
             font-size: 18px;
         }
 
-            /* =========================
-       FOOTER (aligned with other pages)
-    ========================== */
+        /* =========================
+           FOOTER
+        ========================== */
 
-    .footer {
-      background: #0a0e1a;
-      color: #fff;
-      padding: 80px 40px 50px;
-    }
+        .footer {
+            background: #0a0e1a;
+            color: #fff;
+            padding: 80px 40px 50px;
+        }
 
-    .footer-inner {
-      max-width: 1140px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 60px;
-    }
+        .footer-inner {
+            max-width: 1140px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 60px;
+        }
 
-    .footer-heading {
-      font-size: 2rem;
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 28px;
-    }
+        .footer-heading {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 28px;
+        }
 
-    .footer-heading span {
-      color: #60a5fa;
-    }
+        .footer-heading span {
+            color: #60a5fa;
+        }
 
-    .newsletter-form {
-      display: flex;
-      gap: 12px;
-      max-width: 480px;
-      margin-bottom: 16px;
-    }
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+            max-width: 480px;
+            margin-bottom: 16px;
+        }
 
-    .newsletter-form input {
-      flex: 1;
-      padding: 14px 20px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.25);
-      background: transparent;
-      color: #fff;
-      font-size: 1rem;
-      outline: none;
-    }
+        .newsletter-form input {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.25);
+            background: transparent;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            min-width: 0;
+        }
 
-    .newsletter-form input::placeholder {
-      color: #777;
-    }
+        .newsletter-form input::placeholder {
+            color: #777;
+        }
 
-    .newsletter-form button {
-      background: #2563eb;
-      color: #fff;
-      border: none;
-      padding: 14px 28px;
-      border-radius: 999px;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-    }
+        .newsletter-form button {
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 999px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
 
-    .newsletter-note {
-      font-size: 0.8rem;
-      color: #888;
-      max-width: 420px;
-    }
+        .newsletter-note {
+            font-size: 0.8rem;
+            color: #888;
+            max-width: 420px;
+        }
 
-    .newsletter-note a {
-      color: #60a5fa;
-      text-decoration: underline;
-    }
+        .newsletter-note a {
+            color: #60a5fa;
+            text-decoration: underline;
+        }
 
-    .sitemap-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #888;
-      margin-bottom: 20px;
-    }
+        .sitemap-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 20px;
+        }
 
-    .sitemap-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+        .sitemap-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-    .sitemap-list a {
-      color: #60a5fa;
-      font-size: 1rem;
-    }
+        .sitemap-list a {
+            color: #60a5fa;
+            font-size: 1rem;
+        }
 
-    .sitemap-list a:hover {
-      opacity: 0.8;
-    }
+        .sitemap-list a:hover {
+            opacity: 0.8;
+        }
+
         /* =========================
            RESPONSIVE
         ========================== */
 
         @media (max-width: 900px) {
+            .container {
+                width: 100%;
+                max-width: 100%;
+                padding: 0 16px;
+            }
 
             .nav {
-                padding: 16px 20px;
+                padding: 16px;
             }
 
             .nav-links {
                 position: fixed;
                 top: 0;
                 right: -100%;
-                width: 280px;
+                width: min(280px, 85vw);
                 height: 100vh;
                 background: #0a0e1a;
                 flex-direction: column;
@@ -717,33 +702,62 @@ padding-top: 10rem;
             }
 
             .hero {
-                padding: 80px 0;
+                min-height: 100vh;
+                min-height: 100svh;
+                padding: 110px 0 60px;
+                background-position: right center; /* face toward left in photo */
             }
+
             .hero-content {
                 grid-template-columns: 1fr;
+                gap: 24px;
             }
-            .hero-image {
-                height: 450px;
+
+            .hero-description {
+                font-size: 16px;
             }
+
             .trust-image {
-                height: 450px;
+                height: 380px;
             }
+
             .offerings-grid,
             .insights-grid {
                 grid-template-columns: 1fr;
             }
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
+
             .stat {
                 border-right: none;
                 border-bottom: 1px solid #ddd;
             }
+
             .stat:last-child {
                 border-bottom: none;
             }
-               .footer-inner {
-      grid-template-columns: 1fr;
+
+            .footer {
+                padding: 60px 16px 40px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                max-width: 100%;
+            }
+
+            .newsletter-form button {
+                width: 100%;
+            }
+
+            .p-10 {
+                padding-top: 3rem;
             }
         }
 
@@ -751,40 +765,56 @@ padding-top: 10rem;
             .section {
                 padding: 70px 0;
             }
+
             .nav {
                 min-height: 70px;
             }
+
+            .nav-logo {
+                font-size: 0.85rem;
+            }
+
+            .hero {
+                background-position: 20% center; /* fine-tune face on small phones */
+            }
+
             .hero-content h1 {
-                letter-spacing: -2px;
+                letter-spacing: -1.5px;
+                font-size: clamp(34px, 10vw, 48px);
             }
-            .hero-image {
-                height: 380px;
-            }
+
             .watch-grid {
                 gap: 40px;
             }
-            .video-box {
-                min-height: 350px;
+
+            .video-box,
+            .video-box iframe {
+                min-height: 280px;
             }
+
             .insights-header {
                 display: block;
             }
+
             .insights-header .button {
                 margin-top: 25px;
             }
-           
+
+            .offering {
+                min-height: auto;
+                padding: 28px;
+            }
+
+            .offering h3 {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- =========================
-         HEADER (FIXED)
-    ========================== -->
     <nav class="nav">
-        <a href="/" class="nav-logo">
-            DR CORNELIUS ADEWALE
-        </a>
+        <a href="index.html" class="nav-logo">DR CORNELIUS ADEWALE</a>
 
         <div class="nav-links" id="navLinks">
             <a href="index.html" class="active">Home</a>
@@ -797,9 +827,7 @@ padding-top: 10rem;
             <a href="contact.html">Contact</a>
         </div>
 
-        <a href="contact.html" class="nav-cta">
-            Work With Me →
-        </a>
+        <a href="contact.html" class="nav-cta">Work With Me →</a>
 
         <button class="hamburger" id="hamburger" aria-label="Menu">
             <span></span>
@@ -809,16 +837,11 @@ padding-top: 10rem;
     </nav>
 
     <main>
-        <!-- =========================
-             HERO
-        ========================== -->
         <section class="hero">
             <div class="container hero-grid">
                 <div class="hero-content">
                     <div class="hero-heading">
-                        <p class="eyebrow">
-                            INNOVATOR. ENTREPRENEUR. EDUCATOR.
-                        </p>
+                        <p class="eyebrow">INNOVATOR. ENTREPRENEUR. EDUCATOR.</p>
                         <h1>
                             Don't Pay
                             <span>The Price Of</span>
@@ -835,27 +858,18 @@ padding-top: 10rem;
                             doesn't happen to you.
                         </p>
                         <div class="hero-actions">
-                            <a href="about.html" class="button button-dark">
-                                Learn more
-                            </a>
+                            <a href="about.html" class="button button-dark">Learn more</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- =========================
-             WHY TRUST ME
-        ========================== -->
         <section class="section trust" id="about">
             <div class="container trust-grid">
                 <div>
-                    <p class="eyebrow">
-                        WHY TRUST ME
-                    </p>
-                    <h2>
-                        I've Seen Every Costly Mistake in Farm Business
-                    </h2>
+                    <p class="eyebrow">WHY TRUST ME</p>
+                    <h2>I've Seen Every Costly Mistake in Farm Business</h2>
                     <p>
                         I'm Dr Cornelius Adewale, a farm business strategist and operator
                         who has guided farmers through the real challenges of running profitable farms.
@@ -871,9 +885,7 @@ padding-top: 10rem;
                         and the practical systems that help you build a farm business that lasts —
                         so you avoid the same traps and create something that actually works.
                     </p>
-                    <a href="#track-record" class="button button-light">
-                        See My Track Record
-                    </a>
+                    <a href="#track-record" class="button button-light">See My Track Record</a>
                 </div>
                 <div class="trust-image">
                     <img src="images/Image 2026.png" alt="Cornelius Adewale">
@@ -881,26 +893,17 @@ padding-top: 10rem;
             </div>
         </section>
 
-        <!-- =========================
-             WATCH THIS FIRST
-        ========================== -->
         <section class="section watch">
             <div class="container watch-grid p-10">
                 <div>
-                    <p class="eyebrow">
-                        WATCH THIS FIRST
-                    </p>
-                    <h2>
-                        Who I Am
-                    </h2>
+                    <p class="eyebrow">WATCH THIS FIRST</p>
+                    <h2>Who I Am</h2>
                     <p>
                         Before you put money into anything I teach, sit with the idea first.
                         Understand what I'm actually talking about. Then decide.
                     </p>
                     <br>
-                    <a href="#" class="button button-dark">
-                        Meet Dr Cornelius Adewale
-                    </a>
+                    <a href="#" class="button button-dark">Meet Dr Cornelius Adewale</a>
                 </div>
                 <div class="video-box">
                     <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="Dr Cornelius Adewale Introduction Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -908,214 +911,143 @@ padding-top: 10rem;
             </div>
         </section>
 
-        <!-- =========================
-             TRACK RECORD / STATS
-        ========================== -->
         <section class="stats" id="track-record">
             <div class="container stats-grid">
                 <div class="stat">
-                    <div class="stat-number">
-                        5000+
-                    </div>
-                    <div class="stat-label">
-                        Farmers trained
-                    </div>
+                    <div class="stat-number">15000+</div>
+                    <div class="stat-label">Farmers trained</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">
-                        100+
-                    </div>
-                    <div class="stat-label">
-                        Land cultivated
-                    </div>
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Farms Setup</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">
-                        ₦15M+
-                    </div>
-                    <div class="stat-label">
-                        In Deals Advised
-                    </div>
+                    <div class="stat-number">₦8Billion+</div>
+                    <div class="stat-label">In Farm Deals Advised</div>
                 </div>
             </div>
         </section>
 
-        <!-- =========================
-             OFFERINGS
-        ========================== -->
         <section class="section offerings" id="courses">
             <div class="container">
                 <div class="offerings-header">
-                    <p class="eyebrow">
-                        YOU DON'T HAVE TO FIGURE IT OUT ALONE
-                    </p>
-                    <h2>
-                        Guidance from someone who understands the journey and has done the work.
-                    </h2>
+                    <p class="eyebrow">YOU DON'T HAVE TO FIGURE IT OUT ALONE</p>
+                    <h2>Guidance from someone who understands the journey and has done the work.</h2>
                 </div>
                 <div class="offerings-grid">
                     <article class="offering" id="events">
                         <div>
-                            <div class="offering-number">
-                                01 — LIVE EVENTS
-                            </div>
-                            <h3>
-                                Learn In The Room
-                            </h3>
+                            <div class="offering-number">01 — LIVE EVENTS</div>
+                            <h3>Learn In The Room</h3>
                             <p>
                                 How to identify good land to start your farm,
                                 how to use the right tools for better results,
                                 and how to protect yourself from scams.
                             </p>
                         </div>
-                        <a href="event.html" class="offering-link">
-                            See Upcoming Workshops →
-                        </a>
+                        <a href="event.html" class="offering-link">See Upcoming Workshops →</a>
                     </article>
                     <article class="offering">
                         <div>
-                            <div class="offering-number">
-                                02 — ONLINE COURSES
-                            </div>
-                            <h3>
-                                Learn At Your Own Pace
-                            </h3>
+                            <div class="offering-number">02 — ONLINE COURSES</div>
+                            <h3>Learn At Your Own Pace</h3>
                             <p>
                                 From starting your farm business to building systems that actually make profits.
                                 Courses that take you from guessing to running with clarity —
                                 practical strategies, real insights, and step-by-step guidance.
                             </p>
                         </div>
-                        <a href="courses.html" class="offering-link">
-                            Browse Courses →
-                        </a>
+                        <a href="courses.html" class="offering-link">Browse Courses →</a>
                     </article>
                     <article class="offering" id="consultations">
                         <div>
-                            <div class="offering-number">
-                                03 — CONSULTATIONS
-                            </div>
-                            <h3>
-                                Let's Talk First
-                            </h3>
+                            <div class="offering-number">03 — CONSULTATIONS</div>
+                            <h3>Let's Talk First</h3>
                             <p>
                                 About to start a farm business? Need guidance on how to go about it?
                                 Need one-on-one support? Let's talk first.
                             </p>
                         </div>
-                        <a href="contact.html" class="offering-link">
-                            Get in touch with an expert →
-                        </a>
+                        <a href="contact.html" class="offering-link">Get in touch with an expert →</a>
                     </article>
                 </div>
             </div>
         </section>
 
-        <!-- =========================
-             INSIGHTS
-        ========================== -->
         <section class="section insights" id="insights">
             <div class="container">
                 <div class="insights-header">
                     <div>
-                        <p class="eyebrow">
-                            INSIGHTS
-                        </p>
-                        <h2>
-                            Straight Talk
-                            <br>
-                            On Farm Business Strategies
-                        </h2>
+                        <p class="eyebrow">INSIGHTS</p>
+                        <h2>Straight Talk<br>On Farm Business Strategies</h2>
                     </div>
-                    <a href="insights.html" class="button button-dark">
-                        View All Insights
-                    </a>
+                    <a href="insights.html" class="button button-dark">View All Insights</a>
                 </div>
-                <div class="insights-grid" id="articles-grid">
-                </div>
+                <div class="insights-grid" id="articles-grid"></div>
             </div>
         </section>
 
-        <!-- =========================
-             ASSESSMENT / FINAL CTA
-        ========================== -->
         <section class="section final-cta" id="assessment">
             <div class="container">
-                <p class="eyebrow">
-                    DON'T WAIT UNTIL THE DAMAGE IS DONE
-                </p>
-                <h2>
-                    Every Day Without The Right Knowledge
-                    Your Farm Business Bleeds Money.
-                </h2>
+                <p class="eyebrow">DON'T WAIT UNTIL THE DAMAGE IS DONE</p>
+                <h2>Every Day Without The Right Knowledge, Your Farm Business Bleeds Money.</h2>
                 <p>
                     Every season you operate without the right strategy is a season you risk losing money.
                     Costly mistakes are happening around you.
                     The question isn't whether you can afford to learn — it's whether you can afford not to.
                 </p>
                 <div class="hero-actions" style="justify-content:center;">
-                    <a href="courses.html" class="button button-light">
-                        Start Learning Now
-                    </a>
-                    <a href="contact.html" class="button button-light">
-                        Book a Clarity Session
-                    </a>
+                    <a href="courses.html" class="button button-light">Start Learning Now</a>
+                    <a href="contact.html" class="button button-light">Book a Clarity Session</a>
                 </div>
             </div>
         </section>
     </main>
 
-     <!-- =========================
-       FOOTER 
-  ========================== -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div>
-        <h2 class="footer-heading">
-          <span>Join our newsletter</span> for<br>
-          tips, advice and<br>
-          offers!
-        </h2>
-        <form class="newsletter-form">
-          <input type="email" placeholder="Enter your email">
-          <button type="submit">Subscribe ✉</button>
-        </form>
-        <p class="newsletter-note">
-          By signing up to receive emails from Dr Cornelius Adewale, you agree to our
-          <a href="privacy.html">Privacy Policy</a>.
-          We treat your info responsibly. Unsubscribe anytime.
-        </p>
-      </div>
-      <div>
-        <p class="sitemap-label">Sitemap</p>
-        <ul class="sitemap-list">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="get-protected.html">Get Protected</a></li>
-          <li><a href="event.html">Events</a></li>
-          <li><a href="courses.html">Courses</a></li>
-          <li><a href="resources.html">Resources</a></li>
-          <li><a href="insights.html">Insights</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
+    <footer class="footer">
+        <div class="footer-inner">
+            <div>
+                <h2 class="footer-heading">
+                    <span>Join our newsletter</span> for<br>
+                    tips, advice and<br>
+                    offers!
+                </h2>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit">Subscribe ✉</button>
+                </form>
+                <p class="newsletter-note">
+                    By signing up to receive emails from Dr Cornelius Adewale, you agree to our
+                    <a href="privacy.html">Privacy Policy</a>.
+                    We treat your info responsibly. Unsubscribe anytime.
+                </p>
+            </div>
+            <div>
+                <p class="sitemap-label">Sitemap</p>
+                <ul class="sitemap-list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="get-protected.html">Get Protected</a></li>
+                    <li><a href="event.html">Events</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="insights.html">Insights</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        /*
-         * YOUTUBE VIDEO
-         */
         const youtubeLink = "https://www.youtube.com/watch?v=YOUR_VIDEO_ID";
 
         function getYouTubeEmbedUrl(url) {
             try {
                 const parsed = new URL(url);
                 let videoId = parsed.searchParams.get("v");
-
                 if (!videoId && parsed.hostname.includes("youtu.be")) {
                     videoId = parsed.pathname.substring(1);
                 }
-
                 return videoId ? `https://www.youtube.com/embed/${videoId}` : "";
             } catch (error) {
                 return "";
@@ -1124,12 +1056,10 @@ padding-top: 10rem;
 
         const youtubeFrame = document.querySelector(".video-box iframe");
         const youtubeEmbedUrl = getYouTubeEmbedUrl(youtubeLink);
-
         if (youtubeEmbedUrl && youtubeFrame) {
             youtubeFrame.src = youtubeEmbedUrl;
         }
 
-        /* ARTICLES */
         const articles = [
             {
                 image: "article-1.jpg",
@@ -1155,11 +1085,9 @@ padding-top: 10rem;
         ];
 
         const articlesGrid = document.getElementById("articles-grid");
-
         articles.forEach(article => {
             const card = document.createElement("article");
             card.className = "insight-card";
-
             card.innerHTML = `
                 <div class="insight-image">
                     <img src="${article.image}" alt="${article.title}">
@@ -1169,14 +1097,11 @@ padding-top: 10rem;
                 <p>${article.excerpt}</p>
                 <a href="${article.link}" class="insight-link">Read Article →</a>
             `;
-
             articlesGrid.appendChild(card);
         });
 
-        /* HAMBURGER MENU */
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
-
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navLinks.classList.toggle('open');
